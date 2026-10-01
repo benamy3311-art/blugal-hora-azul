@@ -470,7 +470,7 @@ html[data-hero="fotos"] .hero-retrato,html:not([data-hero="fotos"]) .hero-fotos{
 .t-q span:nth-child(2){animation-delay:4s}.t-q span:nth-child(3){animation-delay:8s}
 @keyframes qcycle{0%,3%{opacity:0;transform:translateY(8px)}8%,30%{opacity:1;transform:none}36%,100%{opacity:0;transform:translateY(-8px)}}
 .t-photo{--tb:var(--navy);padding:0;color:var(--cream)}
-.t-photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%;filter:url(#duo);z-index:-1;transition:transform .8s var(--ease)}
+.t-photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%;z-index:-1;transition:transform .8s var(--ease)}
 .t-photo:hover>img{transform:scale(1.04)}
 .t-photo .tile-top,.t-photo .t-bot{padding:clamp(1rem,1.5vw,1.4rem)}
 .t-photo .t-bot{background:linear-gradient(to top,rgba(54,76,132,.88),rgba(54,76,132,0));padding-top:2.4rem}
@@ -501,9 +501,10 @@ html.js .view.is-open .v-in>*:nth-child(4){animation-delay:.24s}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}}
 html:not(.js) .view{padding:var(--sec) 0;border-top:1px solid var(--hair)}
 html:not(.js) [data-close],html:not(.js) .v-next{display:none}
-html.lock{overflow:hidden}
-body.lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
-html.sheet-open .ab,html.sheet-open .dock{display:none}
+html.lock{overflow:hidden;scrollbar-gutter:stable}
+body.lock{overflow:hidden}
+html.lock .scrim,html.lock .bar{touch-action:none}
+html.sheet-open .ab,html.sheet-open .dock,html.sheet-open .stamp{display:none}
 .bar-nav a[aria-current]::after{transform:scaleX(1)}
 
 /* ---------- Portafolio: galería en anillo 3D, cuadrícula y visor ---------- */
@@ -908,9 +909,7 @@ html:not(.js) .ab{display:none}
 /* Flash: tarjeta festoneada (el borde son semicírculos) con estrella-sticker y puntitos */
 .fwrap{position:relative;margin-top:.7rem;max-width:48rem}
 .fstk{position:absolute;z-index:2;left:-14px;top:-24px;width:78px;height:78px;overflow:visible;transform:rotate(-14deg)}
-.fhead{--r:16px;position:relative;overflow:hidden;display:grid;gap:.85rem;justify-items:start;padding:clamp(2.2rem,3.6vw,2.9rem) clamp(1.7rem,3vw,2.7rem) clamp(1.9rem,3vw,2.5rem);background:var(--butter);color:var(--navy);--mute:var(--soft);
-  -webkit-mask:radial-gradient(var(--r),#000 calc(100% - .5px),#0000) 0 0/calc(2*var(--r)) calc(2*var(--r)) round,linear-gradient(#000 0 0) 50%/calc(100% - 2*var(--r)) calc(100% - 2*var(--r)) no-repeat;
-  mask:radial-gradient(var(--r),#000 calc(100% - .5px),#0000) 0 0/calc(2*var(--r)) calc(2*var(--r)) round,linear-gradient(#000 0 0) 50%/calc(100% - 2*var(--r)) calc(100% - 2*var(--r)) no-repeat}
+.fhead{--r:16px;position:relative;overflow:hidden;display:grid;gap:.85rem;justify-items:start;padding:clamp(2.2rem,3.6vw,2.9rem) clamp(1.7rem,3vw,2.7rem) clamp(1.9rem,3vw,2.5rem);background:var(--butter);color:var(--navy);--mute:var(--soft)}
 .fhead>*:not(.fdeco){position:relative}
 .fdeco{position:absolute;right:-30px;bottom:-60px;width:260px;height:230px;--d:#6F8FD6;transform:rotate(-20deg)}
 .fwrap .vf-intro{max-width:none}
@@ -930,9 +929,7 @@ html:not(.js) .ab{display:none}
 @media (min-width:760px){.notify{gap:1.4rem 2rem}}
 /* Tesela de Flash: festoneada, con la estrella-sticker y los puntitos */
 .t-flash{--r:13px;overflow:visible;background:none}
-.tile-clip{position:absolute;inset:0;z-index:-2;overflow:hidden;background:var(--lime);
-  -webkit-mask:radial-gradient(var(--r),#000 calc(100% - .5px),#0000) 0 0/calc(2*var(--r)) calc(2*var(--r)) round,linear-gradient(#000 0 0) 50%/calc(100% - 2*var(--r)) calc(100% - 2*var(--r)) no-repeat;
-  mask:radial-gradient(var(--r),#000 calc(100% - .5px),#0000) 0 0/calc(2*var(--r)) calc(2*var(--r)) round,linear-gradient(#000 0 0) 50%/calc(100% - 2*var(--r)) calc(100% - 2*var(--r)) no-repeat}
+.tile-clip{position:absolute;inset:0;z-index:-2;overflow:hidden;background:var(--lime)}
 .tile-stk{position:absolute;z-index:2;left:-12px;top:-18px;width:60px;height:60px;overflow:visible;transform:rotate(-14deg);pointer-events:none}
 .tile-dots{position:absolute;right:-34px;bottom:-46px;width:132px;height:116px;--d:#6F8FD6;transform:rotate(-20deg);pointer-events:none}
 .t-flash .tile-top .cap{margin-left:2.7rem}
@@ -940,9 +937,53 @@ html:not(.js) .ab{display:none}
 @media (min-width:700px){.bento{grid-auto-rows:minmax(clamp(11rem,16vw,17rem),auto)}}
 
 @media (max-width:699px){
+  .t-flash .tile-top .cap{margin-left:1.1rem}
   .tile-stk{left:-14px;top:-16px;width:48px;height:48px}
   .tile-dots{right:-36px;bottom:-40px;width:104px;height:92px}
   .t-flash .tile-top .cap{margin-left:1.2rem;white-space:nowrap;letter-spacing:.06em}
+}
+
+/* ---------- Su sello giratorio «AGENDA TU CITA · BLU GAL» (reemplaza el botón flotante) ---------- */
+.stamp{position:fixed;z-index:55;right:calc(1rem + env(safe-area-inset-right,0px));bottom:calc(1rem + env(safe-area-inset-bottom,0px));width:84px;height:84px;border-radius:50%;box-shadow:0 8px 22px rgba(40,53,120,.26);
+  visibility:hidden;opacity:0;transform:translateY(120%) scale(.8);pointer-events:none;transition:opacity .35s,transform .5s var(--ease),visibility 0s linear .5s}
+.stamp.show{visibility:visible;opacity:1;transform:none;pointer-events:auto;transition-delay:0s}
+.stamp.show:hover{transform:scale(1.06)}
+.stamp svg{display:block;width:100%;height:100%;overflow:visible}
+.stamp .ring{transform-origin:100px 100px;animation:spin 24s linear infinite}
+@media (min-width:760px){.stamp{width:116px;height:116px;right:1.6rem;bottom:1.6rem}}
+@media (prefers-reduced-motion:reduce){.stamp .ring{animation:none}}
+/* Teselas: número y nombre juntos; en las teselas angostas (celular) se apilan, y los chips de Servicios pasan a lista */
+.tile .cap .n::after{content:"\00a0·\00a0"}
+@media (max-width:1099px){
+  .tile:not(.t-port):not(.t-agen) .tile-top .cap{display:flex;flex-direction:column;gap:.22rem;line-height:1.15}
+  .tile:not(.t-port):not(.t-agen) .tile-top .cap .n::after{content:none}
+  .t-flash .tile-top .cap{margin-left:2.2rem}
+  .tile-dots{right:-38px;bottom:-44px;width:112px;height:98px}
+}
+@media (max-width:899px){
+  .t-chips{display:grid;gap:.34rem;justify-items:start}
+  .t-chips span{display:flex;gap:.5rem;align-items:baseline;padding:0;border-radius:0;box-shadow:none;font-size:.76rem;line-height:1.25}
+  .t-chips span::before{content:"";flex:none;width:.34rem;height:.34rem;border-radius:50%;background:currentColor;opacity:.7;transform:translateY(-.08em)}
+}
+
+/* Festón (borde de carta): un semicírculo por mosaico; el JS deja --sx/--sy para que quepa un número entero de ellos */
+.scal{-webkit-mask-image:radial-gradient(closest-side,#000 calc(100% - .5px),#0000),linear-gradient(#000 0 0);mask-image:radial-gradient(closest-side,#000 calc(100% - .5px),#0000),linear-gradient(#000 0 0);
+  -webkit-mask-size:var(--sx,calc(2 * var(--r,16px))) var(--sy,calc(2 * var(--r,16px))),calc(100% - var(--sx,calc(2 * var(--r,16px)))) calc(100% - var(--sy,calc(2 * var(--r,16px))));
+  mask-size:var(--sx,calc(2 * var(--r,16px))) var(--sy,calc(2 * var(--r,16px))),calc(100% - var(--sx,calc(2 * var(--r,16px)))) calc(100% - var(--sy,calc(2 * var(--r,16px))));
+  -webkit-mask-position:0 0,50% 50%;mask-position:0 0,50% 50%;-webkit-mask-repeat:round,no-repeat;mask-repeat:round,no-repeat}
+.scal.fit{-webkit-mask-repeat:repeat,no-repeat;mask-repeat:repeat,no-repeat}
+html:not(.js) .scal{-webkit-mask:none;mask:none}                                   /* sin JS no hay quien ajuste el festón: tarjeta lisa antes que cortada */
+html:not(.js) .fhead{border-radius:var(--r-card)}
+html:not(.js) .tile-clip{border-radius:calc(var(--r-card) * 2.2)}
+/* Retratos en dúo-tono ya procesados (antes eran un filtro SVG que Safari pintaba despacio) */
+.badge .face,.portrait img,.t-photo>img{filter:none}
+/* Las teselas solo llevan perspectiva mientras se inclinan (antes eran 8 capas 3D permanentes) */
+.tile:not(.is-tilting){transform:none}
+
+/* Flash entre 700 y 799 px: la fila de 5 columnas no deja espacio al nombre («ornamental» no cabía); se usa la fila compacta */
+@media (min-width:700px) and (max-width:799px){
+  .frow{grid-template-columns:3.6rem minmax(0,1fr) auto;grid-template-areas:"th fn fn" "th st cta";align-items:center}
+  .frow>.cap{display:none}.frow .thumb{grid-area:th;width:3.6rem}.frow .fn{grid-area:fn}.frow .fst{grid-area:st;justify-self:start}.frow>.pill,.frow>span:last-child{grid-area:cta}
 }
 
 /* Sin JavaScript (p. ej. la Vista previa de Archivos del iPad): se ve el contenido estático */
@@ -1036,7 +1077,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
       <figure class="ph ph-c" data-depth=".02"><img src="assets/444.jpg" width="720" height="900" alt="Tatuaje minimalista del número 444 en el antebrazo"><figcaption class="chip">Minimalista</figcaption></figure>
       <div class="badge" data-depth=".09">
         <svg class="ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ringp" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs><text font-family="Montserrat,Arial,sans-serif" font-size="17" font-weight="600" fill="#364C84" letter-spacing="2"><textPath href="#ringp" textLength="448" lengthAdjust="spacing">FRAGMENTOS • BLU GAL • FRAGMENTOS • BLU GAL •</textPath></text></svg>
-        <img class="face" src="assets/gabriela-cara.jpg" width="260" height="260" alt="Gabriela, Blu Gal">
+        <img class="face" src="assets/gabriela-cara-duo.jpg" width="260" height="260" alt="Gabriela, Blu Gal">
       </div>
     </div>
   </div>
@@ -1093,44 +1134,44 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 
   <section class="bento" aria-label="Todo el sitio, en un vistazo">
     <a class="tile t-sky t-port rv" href="#portafolio" data-v="portafolio">
-      <div class="tile-top"><span class="cap">01 · Portafolio</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
+      <div class="tile-top"><span class="cap"><span class="n">01</span><span class="tn">Portafolio</span></span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
       <div class="fan" aria-hidden="true"><img src="assets/relicario.jpg" alt="" loading="lazy"><img src="assets/tulipan.jpg" alt="" loading="lazy"><img src="assets/444.jpg" alt="" loading="lazy"></div>
       <div><h3>Mi portafolio</h3><p class="tile-p">Línea fina, minimalista, ornamental y botánica.</p></div>
     </a>
     <a class="tile t-lime t-flash rv" style="--d:.06s" href="#flash" data-v="flash">
       <svg class="tile-stk" viewBox="-6 -6 82 82" aria-hidden="true"><use href="#bg-flor" width="70" height="70" style="color:#E7F1A8" stroke="#E7F1A8" stroke-width="8" stroke-linejoin="round"/><use href="#bg-flor" width="70" height="70" style="color:#364C84"/></svg>
-      <span class="tile-clip" aria-hidden="true"><span class="b v3 dt tile-dots"></span></span>
-      <div class="tile-top"><span class="cap">02 · Flash</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
+      <span class="tile-clip scal" aria-hidden="true"><span class="b v3 dt tile-dots"></span></span>
+      <div class="tile-top"><span class="cap"><span class="n">02</span><span class="tn">Flash</span></span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
       <div class="t-flash-art" aria-hidden="true"><span class="b dt" style="--d:var(--navy)"></span><span class="b v2 ln"></span><span class="b v3 fill" style="--c:var(--peri)"></span></div>
       <div><h3>Flash tattoo</h3><p class="tile-p" id="tileFlash">Quedan 3 disponibles</p></div>
     </a>
     <a class="tile t-ring rv" style="--d:.12s" href="#servicios" data-v="servicios">
-      <div class="tile-top"><span class="cap">03 · Servicios</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
+      <div class="tile-top"><span class="cap"><span class="n">03</span><span class="tn">Servicios</span></span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
       <div class="t-chips" aria-hidden="true"><span>Diseño personalizado</span><span>Flash</span><span>Bono de regalo</span></div>
       <div><h3>Servicios</h3></div>
     </a>
     <a class="tile t-butter t-agen rv" style="--d:.18s" href="#agendar" data-v="agendar">
-      <div class="tile-top"><span class="cap">04 · Agendar</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
+      <div class="tile-top"><span class="cap"><span class="n">04</span><span class="tn">Agendar</span></span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
       <span class="t-status"><i class="dotst" aria-hidden="true"></i><span class="only-open">Agenda abierta</span><span class="only-closed">Agenda cerrada · Avísame</span> · Bogotá <b data-clock>--:--</b></span>
       <div><h3>Agenda tu cita</h3><p class="tile-p">Tu solicitud se envía por WhatsApp.</p></div>
     </a>
     <a class="tile t-ring rv" href="#cuidados" data-v="cuidados">
-      <div class="tile-top"><span class="cap">05 · Cuidados</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
+      <div class="tile-top"><span class="cap"><span class="n">05</span><span class="tn">Cuidados</span></span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
       <div class="t-line" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       <div><h3><svg class="mk-h" aria-hidden="true"><use href="#bg-heart"/></svg>Cuidados</h3><p class="tile-p">Ver guía de cuidados</p></div>
     </a>
     <a class="tile t-ring rv" style="--d:.06s" href="#preguntas" data-v="preguntas">
-      <div class="tile-top"><span class="cap">06 · Preguntas</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
+      <div class="tile-top"><span class="cap"><span class="n">06</span><span class="tn">Preguntas</span></span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
       <div class="t-q" aria-hidden="true"><span>¿Cuánto cuesta?</span><span>¿Duele?</span><span>¿Cómo me preparo?</span></div>
       <div><h3>Preguntas frecuentes</h3></div>
     </a>
     <a class="tile t-photo rv" style="--d:.12s" href="#sobre" data-v="sobre">
-      <img src="assets/gabriela-retrato.jpg" alt="" loading="lazy">
-      <div class="tile-top"><span class="cap" style="color:var(--butter)">07 · Sobre mí</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
+      <img src="assets/gabriela-retrato-duo.jpg" alt="" loading="lazy">
+      <div class="tile-top"><span class="cap" style="color:var(--butter)"><span class="n">07</span><span class="tn">Sobre mí</span></span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
       <div class="t-bot"><h3><svg class="mk-h" aria-hidden="true"><use href="#bg-heart"/></svg>Detrás de blu</h3><p class="tile-p" style="color:var(--sky)">Tatuadora y diseñadora de modas</p></div>
     </a>
     <a class="tile t-cream rv" style="--d:.18s" href="#tienda" data-v="tienda">
-      <div class="tile-top"><span class="cap">08 · Tiendita</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg><span class="sr-only">Ir a la tienda</span></span></div>
+      <div class="tile-top"><span class="cap"><span class="n">08</span><span class="tn">Tiendita</span></span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg><span class="sr-only">Ir a la tienda</span></span></div>
       <div class="t-stk" aria-hidden="true"><svg class="stk" viewBox="0 0 120 120" aria-hidden="true"><path d="M58 7C86 5 111 26 113 56C115 88 93 112 61 113C29 114 7 93 7 62C7 31 29 9 58 7Z" fill="#FBFDC6" stroke="#FFFFFF" stroke-width="7" stroke-linejoin="round"/><g fill="none" stroke="#364C84" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M37 50H83L87 91H33Z"/><path d="M48 50C48 33 72 33 72 50"/></g><use href="#bg-heart" x="52" y="62" width="16" height="16" style="color:#364C84"/><path d="M103 18l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#FFFFFF"/></svg><svg class="stk" viewBox="0 0 120 120" aria-hidden="true"><path d="M62 6C90 8 113 31 112 61C111 91 88 114 58 112C28 110 6 88 8 58C10 28 33 4 62 6Z" fill="#E7F1A8" stroke="#FFFFFF" stroke-width="7" stroke-linejoin="round"/><g fill="none" stroke="#364C84" stroke-width="3.2" stroke-linecap="round"><circle cx="60" cy="58" r="25"/><path d="M60 83V96"/></g><use href="#bg-flor" x="46" y="44" width="28" height="28" style="color:#364C84"/><path d="M103 18l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#FFFFFF"/></svg><svg class="stk" viewBox="0 0 120 120" aria-hidden="true"><path d="M55 8C84 4 112 25 113 57C114 90 90 114 60 112C27 110 5 90 7 59C9 29 27 12 55 8Z" fill="#95B1EE" stroke="#FFFFFF" stroke-width="7" stroke-linejoin="round"/><g fill="none" stroke="#364C84" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M40 29H80Q86 29 86 35V74L70 91H40Q34 91 34 85V35Q34 29 40 29Z"/><path d="M86 74H72Q70 74 70 76V91"/></g><use href="#bg-heart" x="41" y="37" width="15" height="15" style="color:#364C84"/><use href="#bg-flor" x="58" y="52" width="18" height="18" style="color:#364C84"/><path d="M103 18l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#FFFFFF"/></svg></div>
       <div><h3>Tiendita</h3><p class="tile-p" style="max-width:none">Más que tattoos, también hay&nbsp;moda&nbsp;♥</p></div>
     </a>
@@ -1200,7 +1241,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
     <div class="v-tools"><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
   <div class="fwrap">
     <svg class="fstk" viewBox="-6 -6 82 82" aria-hidden="true"><use href="#bg-flor" width="70" height="70" style="color:#E7F1A8" stroke="#E7F1A8" stroke-width="8" stroke-linejoin="round"/><use href="#bg-flor" width="70" height="70" style="color:#364C84"/></svg>
-    <div class="fhead vf-intro">
+    <div class="fhead scal vf-intro">
       <span class="b v3 dt fdeco" aria-hidden="true"></span>
       <p class="h-md">Un fragmento, <em>una sola piel</em></p>
       <p>Diseños listos para tatuar. Cada uno se tatúa una sola vez: cuando alguien lo lleva en su piel, no vuelve a estar disponible.</p>
@@ -1368,7 +1409,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
   <header class="v-head"><h2 class="h-lg" id="vb-h" tabindex="-1"><svg class="mk-h" aria-hidden="true"><use href="#bg-heart"/></svg>Detrás de blu</h2>
     <div class="v-tools"><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
   <div class="about">
-    <figure class="portrait"><img src="assets/gabriela-retrato.jpg" width="720" height="900" alt="Gabriela, blu gal, sonriendo con su máquina de tatuar en la mano" loading="lazy"><figcaption class="loc-tag">Bogotá, CO</figcaption></figure>
+    <figure class="portrait"><img src="assets/gabriela-retrato-duo.jpg" width="720" height="900" alt="Gabriela, blu gal, sonriendo con su máquina de tatuar en la mano" loading="lazy"><figcaption class="loc-tag">Bogotá, CO</figcaption></figure>
     <div class="about-t">
       <p class="cap">Tatuadora y diseñadora de modas</p>
       <p>Hola, soy Gabriela, más conocida como BLU . GAL. Soy diseñadora de modas, especializada en ilustración de moda. También hago diseño gráfico y tengo una tiendita de mascotas.</p>
@@ -1445,7 +1486,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 <!-- Selector SOLO para probar el concepto: se borra al elegir portada -->
 <div class="ab" role="group" aria-label="Probar portada (solo concepto)"><button class="ab-toggle" type="button" aria-expanded="false">Pruebas</button><span class="cap">Portada</span><button type="button" data-v="fotos" aria-pressed="false">Fotos</button><button type="button" data-v="retrato" aria-pressed="true">Retrato</button><button type="button" data-v="mixto" aria-pressed="false" title="Retrato + fotos">Mixto</button><span class="ab-sep" aria-hidden="true"></span><span class="cap">Líneas</span><button type="button" data-tz="play" title="Volver a dibujar las líneas">Repetir ↻</button><button type="button" data-tz="off" aria-pressed="false" title="Ver la portada sin líneas">Quitar</button></div>
 
-<a class="dock" id="dock" href="#agendar" data-v="agendar" data-tone="light"><i class="dotst" aria-hidden="true"></i><span class="only-open">Agendar cita</span><span class="only-closed">Agenda cerrada · Avísame</span><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a>
+<a class="stamp" id="dock" href="#agendar" data-v="agendar" data-tone="light" aria-label="Agenda tu cita"><svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="circ" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs><circle cx="100" cy="100" r="99" fill="#FBFDC6"/><g class="ring only-open"><text font-family="Montserrat,Arial,sans-serif" font-size="17" font-weight="600" fill="#364C84" letter-spacing="2"><textPath href="#circ" textLength="448" lengthAdjust="spacing">AGENDA TU CITA • BLU GAL • AGENDA TU CITA • BLU GAL •</textPath></text></g><g class="ring only-closed"><text font-family="Montserrat,Arial,sans-serif" font-size="17" font-weight="600" fill="#364C84" letter-spacing="2"><textPath href="#circ" textLength="448" lengthAdjust="spacing">AGENDA CERRADA • AVÍSAME • AGENDA CERRADA • AVÍSAME •</textPath></text></g><use href="#bg-flor" x="70" y="70" width="60" height="60" style="color:#364C84"/></svg></a>
 
 <script>
 /* ===== Configuración (igual que la web original, más el estado de la agenda) ===== */
@@ -1473,6 +1514,7 @@ const BASE_TITLE = document.title;
 
 /* ===== Estado de agenda, enlaces, reloj de Bogotá ===== */
 document.body.dataset.agenda = CONFIG.agenda;
+{ const st = document.getElementById('dock'); if (st) st.setAttribute('aria-label', CONFIG.agenda === 'cerrada' ? 'Agenda cerrada: avísame cuando abra' : 'Agenda tu cita'); }
 function linkify(r = document) {
   $$('[data-link]', r).forEach(a => { const u = CONFIG[a.dataset.link]; if (u) { a.href = u; a.target = '_blank'; a.rel = 'noopener'; } });
   $$('[data-ig]', r).forEach(e => e.textContent = CONFIG.usuarioInstagram);
@@ -1501,12 +1543,13 @@ function setMenu(open) {
 }
 mbtn.addEventListener('click', () => setMenu(menu.hidden));
 
-/* ===== Bloqueo de scroll (conserva la posición de la portada mientras hay una hoja abierta) ===== */
-let lockY = 0, locks = new Set();
+/* ===== Bloqueo de scroll mientras hay una hoja abierta =====
+   Antes se fijaba el <body> y al cerrar se volvía a poner el scroll: en el iPad eso obligaba a Safari a recalcular y repintar
+   toda la página y se veía un segundo en blanco. Ahora solo se esconde el desborde: la página no se mueve ni se repinta. */
+let locks = new Set();
 function lockScroll(on, who) {
-  const was = locks.size > 0; on ? locks.add(who) : locks.delete(who); const now = locks.size > 0;
-  if (now && !was) { lockY = scrollY; document.body.style.top = (-lockY) + 'px'; root.classList.add('lock'); document.body.classList.add('lock'); }
-  if (!now && was) { root.classList.remove('lock'); document.body.classList.remove('lock'); document.body.style.top = ''; root.style.scrollBehavior = 'auto'; scrollTo(0, lockY); root.style.scrollBehavior = ''; }
+  on ? locks.add(who) : locks.delete(who);
+  const now = locks.size > 0; root.classList.toggle('lock', now); document.body.classList.toggle('lock', now);
 }
 function homeInert(on) { [...$$('.hero'), $('#contenido'), $('.foot'), $('#dock')].forEach(el => { el.inert = on; }); }
 
@@ -1610,7 +1653,7 @@ function update() {
   if (t !== toneEl) { toneEl = t; bar.dataset.tone = t.dataset.tone; bar.style.setProperty('--bar-bg', getComputedStyle(t).getPropertyValue('--bg')); }
 
   const ft = foot.getBoundingClientRect();
-  dock.classList.toggle('show', !cur && y > vh * .7 && ft.top > vh * .85);
+  dock.classList.toggle('show', !cur && (y > vh * .7 || innerWidth >= 700) && ft.top > vh * .85);
   dock.dataset.tone = toneAt(vh - 36).dataset.tone;
 
   if (!reduce) {
@@ -1731,6 +1774,21 @@ $('.ab').addEventListener('click', e => {
       }
     }
   }
+}
+
+/* ===== Bordes festoneados («la carta» de Flash): los semicírculos tienen que caber enteros =====
+   Safari no ajusta el tamaño del mosaico de la máscara (mask-repeat: round) y cortaba los de la derecha. Aquí se calcula el tamaño
+   exacto para que quepa un número entero en cada lado, y se recalcula si cambia el tamaño de la tarjeta. */
+{
+  const scalFit = new ResizeObserver(es => es.forEach(e => {
+    const el = e.target, bs = e.borderBoxSize && e.borderBoxSize[0], w = bs ? bs.inlineSize : el.offsetWidth, h = bs ? bs.blockSize : el.offsetHeight;
+    if (!w || !h) return;
+    const r = parseFloat(getComputedStyle(el).getPropertyValue('--r')) || 16;
+    el.style.setProperty('--sx', (w / Math.max(2, Math.round(w / (2 * r)))).toFixed(3) + 'px');
+    el.style.setProperty('--sy', (h / Math.max(2, Math.round(h / (2 * r)))).toFixed(3) + 'px');
+    el.classList.add('fit');
+  }));
+  $$('.scal').forEach(el => scalFit.observe(el));
 }
 
 /* ===== Revelado al entrar en pantalla (inicio y pie) ===== */
