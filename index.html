@@ -986,6 +986,45 @@ html:not(.js) .tile-clip{border-radius:calc(var(--r-card) * 2.2)}
   .frow>.cap{display:none}.frow .thumb{grid-area:th;width:3.6rem}.frow .fn{grid-area:fn}.frow .fst{grid-area:st;justify-self:start}.frow>.pill,.frow>span:last-child{grid-area:cta}
 }
 
+/* ===========================================================================
+   Detalles que suman: cinta que corre, títulos que se dibujan, matasellos, lupa y aguja con el cursor
+   =========================================================================== */
+/* Cinta: sus estilos pasando lento entre la portada y el manifiesto */
+.cinta{overflow:hidden;margin:calc(var(--sec) * -.55) calc(-1 * var(--mx)) var(--s5);padding:clamp(.85rem,1.6vw,1.25rem) 0;border-block:1px solid var(--hair);color:var(--cream)}
+.cinta-in{display:flex;width:max-content;animation:cinta 48s linear infinite}
+.cinta-g{display:flex;align-items:center;gap:clamp(1.1rem,2.2vw,2rem);padding-right:clamp(1.1rem,2.2vw,2rem);font:400 clamp(1.45rem,2.7vw,2.5rem)/1.1 var(--serif);letter-spacing:-.01em;white-space:nowrap}
+.cinta-g em{font-style:italic;color:var(--butter)}
+.cinta .cf{flex:none;width:.5em;height:.5em;fill:currentColor;color:var(--butter)}
+@keyframes cinta{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.cinta-in{animation:none}}
+/* Títulos que se dibujan: al abrir cada hoja, su marcador (blob o corazón) aparece como trazado por la aguja */
+@property --mkd{syntax:'<angle>';inherits:false;initial-value:360deg}
+.v-head .mk:not(.dt),.v-head .mk-h{-webkit-mask-image:conic-gradient(from 210deg,#000 var(--mkd),#0000 0);mask-image:conic-gradient(from 210deg,#000 var(--mkd),#0000 0)}
+@media (prefers-reduced-motion:no-preference){
+  html.js .view.is-open .v-head .mk:not(.dt),html.js .view.is-open .v-head .mk-h{animation:mkdraw .95s cubic-bezier(.6,.05,.3,1) .45s both}
+  html.js .view.is-open .v-head .mk.dt{animation:mkdots .7s var(--ease) .45s both}
+}
+@keyframes mkdraw{from{--mkd:0deg}to{--mkd:360deg}}
+@keyframes mkdots{from{opacity:0;transform:scale(.4) rotate(-30deg)}}
+/* Matasellos «Ya tatuado»: los flash agotados quedan sellados, como una carta ya enviada */
+.frow{position:relative}
+.pmark{position:absolute;z-index:1;right:calc(var(--mx) + 8.4rem);top:50%;width:clamp(9.5rem,13vw,11.5rem);height:auto;color:var(--navy);opacity:.72;transform:translateY(-50%) rotate(-9deg);pointer-events:none;overflow:visible}
+.pmark .pm-c{stroke-dasharray:44 2 15 3}
+.pmark .pm-w{stroke-dasharray:24 3 9 2}
+@media (max-width:799px){.pmark{right:calc(var(--mx) - .4rem);top:66%;width:7.8rem}}
+@media (prefers-reduced-motion:no-preference){html.js .view.is-open .pmark{animation:stampin .5s cubic-bezier(.25,1.5,.45,1) .7s both}}
+@keyframes stampin{from{opacity:0;transform:translateY(-50%) rotate(-24deg) scale(1.5)}}
+/* Lupa en el visor: ver la línea de cerca */
+.lens{position:absolute;z-index:3;left:0;top:0;width:clamp(9rem,16vw,12rem);aspect-ratio:1;border-radius:50%;pointer-events:none;background-color:#1e2a50;background-repeat:no-repeat;box-shadow:0 0 0 2px var(--cream),0 14px 34px rgba(20,28,60,.5);opacity:0;transform:translate(-50%,-50%) scale(.6);transition:opacity .18s,transform .25s var(--ease)}
+.lens.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#lbImg{cursor:zoom-in;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.lb-hint{margin-top:.9rem;max-width:32ch;font-size:.8rem;line-height:1.45;color:var(--sky)}
+.hint-touch{display:none}
+@media (hover:none),(pointer:coarse){.hint-hover{display:none}.hint-touch{display:inline}}
+html:not(.js) .lb-hint{display:none}
+/* Aguja con el cursor (portada, solo computador) */
+.aguja{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
 /* Sin JavaScript (p. ej. la Vista previa de Archivos del iPad): se ve el contenido estático */
 html:not(.js) #ringWrap,html:not(.js) .vp-mode,html:not(.js) .mapbtn,html:not(.js) .wa-prev{display:none}
 html:not(.js) .view{position:static}
@@ -1126,6 +1165,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 
 <main class="sheet" id="contenido">
 <div class="panel p-navy" data-tone="dark">
+  <div class="cinta" aria-hidden="true"><div class="cinta-in"><div class="cinta-g"><span>Línea fina</span><svg class="cf"><use href="#bg-flor"/></svg><em>Minimalista</em><svg class="cf"><use href="#bg-flor"/></svg><span>Ornamental</span><svg class="cf"><use href="#bg-flor"/></svg><em>Botánica</em><svg class="cf"><use href="#bg-flor"/></svg><span>Fragmentos que se vuelven permanentes</span><svg class="cf"><use href="#bg-flor"/></svg><em>Bogotá</em><svg class="cf"><use href="#bg-flor"/></svg></div><div class="cinta-g"><span>Línea fina</span><svg class="cf"><use href="#bg-flor"/></svg><em>Minimalista</em><svg class="cf"><use href="#bg-flor"/></svg><span>Ornamental</span><svg class="cf"><use href="#bg-flor"/></svg><em>Botánica</em><svg class="cf"><use href="#bg-flor"/></svg><span>Fragmentos que se vuelven permanentes</span><svg class="cf"><use href="#bg-flor"/></svg><em>Bogotá</em><svg class="cf"><use href="#bg-flor"/></svg></div></div></div>
   <section class="mani" id="manifiesto" aria-labelledby="mani-h">
     <h2 class="sr-only" id="mani-h">¿Por qué fragmentos?</h2>
     <p class="cap rv" aria-hidden="true">¿Por qué fragmentos?</p>
@@ -1250,7 +1290,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
   </div>
   <div class="vf-list">
     <ul class="flist" id="flist"></ul>
-    <noscript><ul class="flist"><li class="frow ok"><span class="cap">01</span><span class="thumb" aria-hidden="true"><span class="b dt" style="--d:var(--fg)"></span></span><div class="fn"><h3 class="nm">Rama de olivo</h3><span class="cap">Botánica</span></div><span class="fst">Disponible</span><a class="pill sm" href="#agendar" data-v="agendar">Reservar este flash <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a></li><li class="frow ok"><span class="cap">02</span><span class="thumb" aria-hidden="true"><span class="b v2 ln"></span></span><div class="fn"><h3 class="nm">Sol ornamental</h3><span class="cap">Ornamental</span></div><span class="fst">Disponible</span><a class="pill sm" href="#agendar" data-v="agendar">Reservar este flash <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a></li><li class="frow done"><span class="cap">03</span><span class="thumb" aria-hidden="true"><span class="b v3 fill" style="--c:var(--fg)"></span></span><div class="fn"><h3 class="nm">Luna creciente</h3><span class="cap">Minimalista</span></div><span class="fst">Ya tatuado</span><span></span></li><li class="frow ok"><span class="cap">04</span><span class="thumb" aria-hidden="true"><span class="b fill" style="--c:var(--peri)"></span></span><div class="fn"><h3 class="nm">Flor de lavanda</h3><span class="cap">Línea fina</span></div><span class="fst">Disponible</span><a class="pill sm" href="#agendar" data-v="agendar">Reservar este flash <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a></li></ul></noscript>
+    <noscript><ul class="flist"><li class="frow ok"><span class="cap">01</span><span class="thumb" aria-hidden="true"><span class="b dt" style="--d:var(--fg)"></span></span><div class="fn"><h3 class="nm">Rama de olivo</h3><span class="cap">Botánica</span></div><span class="fst">Disponible</span><a class="pill sm" href="#agendar" data-v="agendar">Reservar este flash <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a></li><li class="frow ok"><span class="cap">02</span><span class="thumb" aria-hidden="true"><span class="b v2 ln"></span></span><div class="fn"><h3 class="nm">Sol ornamental</h3><span class="cap">Ornamental</span></div><span class="fst">Disponible</span><a class="pill sm" href="#agendar" data-v="agendar">Reservar este flash <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a></li><li class="frow done"><span class="cap">03</span><span class="thumb" aria-hidden="true"><span class="b v3 fill" style="--c:var(--fg)"></span></span><div class="fn"><h3 class="nm">Luna creciente</h3><span class="cap">Minimalista</span></div><span class="fst">Ya tatuado</span><span></span><svg class="pmark" viewBox="0 0 240 110" aria-hidden="true"><defs><path id="pm2" d="M185 55m-40 0a40 40 0 1 1 80 0a40 40 0 1 1 -80 0"/></defs><g fill="none" stroke="currentColor" stroke-linecap="round"><path class="pm-w" stroke-width="2.2" d="M8 33q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0M8 46q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0M8 59q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0M8 72q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0"/><circle class="pm-c" cx="185" cy="55" r="50" stroke-width="2.4"/><circle class="pm-c" cx="185" cy="55" r="31" stroke-width="1.3"/></g><text font-family="Montserrat,Arial,sans-serif" font-size="10.4" font-weight="600" fill="currentColor"><textPath href="#pm2" textLength="246" lengthAdjust="spacing">• YA TATUADO • BLU GAL • FLASH </textPath></text><use href="#bg-flor" x="174" y="44" width="22" height="22"/></svg></li><li class="frow ok"><span class="cap">04</span><span class="thumb" aria-hidden="true"><span class="b fill" style="--c:var(--peri)"></span></span><div class="fn"><h3 class="nm">Flor de lavanda</h3><span class="cap">Línea fina</span></div><span class="fst">Disponible</span><a class="pill sm" href="#agendar" data-v="agendar">Reservar este flash <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a></li></ul></noscript>
   </div>
   <nav class="v-next" aria-label="Siguiente hoja"><a class="alink" href="#portafolio" data-v="portafolio"><svg class="ar" style="transform:rotate(-90deg)" aria-hidden="true"><use href="#i-ur"/></svg> Mi portafolio</a><a class="alink" href="#servicios" data-v="servicios">Servicios <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a></nav>
  </div>
@@ -1444,9 +1484,9 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 <!-- Visor de trabajos -->
 <dialog class="lb" id="lb" aria-label="Trabajo">
   <div class="lb-in">
-    <div class="lb-img"><img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="720" height="900"><button class="pill sm lb-x" type="button" id="lbX">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+    <div class="lb-img"><span class="lens" aria-hidden="true"></span><img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="720" height="900"><button class="pill sm lb-x" type="button" id="lbX">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div>
     <div class="lb-side">
-      <div><p class="cap" id="lbStyle"></p><h3 id="lbTitle"></h3></div>
+      <div><p class="cap" id="lbStyle"></p><h3 id="lbTitle"></h3><p class="lb-hint"><span class="hint-hover">Pasa el cursor sobre la foto para ver la línea de cerca.</span><span class="hint-touch">Mantén el dedo sobre la foto para ver la línea de cerca.</span></p></div>
       <div class="btns"><button class="pill acc" type="button" id="lbWant">Quiero algo así <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></button><a class="pill" data-link="instagram" href="#">Instagram <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a></div>
       <div class="lb-nav"><button class="pill sm" type="button" id="lbPrev" aria-label="Anterior"><svg class="ar" aria-hidden="true"><use href="#i-l"/></svg></button><span class="cap" id="lbCount"></span><button class="pill sm" type="button" id="lbNext" aria-label="Siguiente"><svg class="ar" aria-hidden="true"><use href="#i-r"/></svg></button></div>
     </div>
@@ -1791,6 +1831,58 @@ $('.ab').addEventListener('click', e => {
   $$('.scal').forEach(el => scalFit.observe(el));
 }
 
+/* ===== Aguja con el cursor (portada, solo computador): el mouse deja una línea azul fina que se desvanece, detrás de ella ===== */
+if (matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce) {
+  const clip = $('.hero-retrato .trazo-clip');
+  if (clip) {
+    const cv = document.createElement('canvas'); cv.className = 'aguja'; cv.setAttribute('aria-hidden', 'true'); clip.appendChild(cv);
+    const g = cv.getContext('2d'), LIFE = 1100; let pts = [], raf = 0, W = 0, H = 0, dpr = 1;
+    const size = () => { const r = clip.getBoundingClientRect(); dpr = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = Math.max(1, Math.round(W * dpr)); cv.height = Math.max(1, Math.round(H * dpr)); };
+    new ResizeObserver(size).observe(clip); size();
+    const draw = now => {
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+      pts = pts.filter(p => now - p.t < LIFE);
+      g.lineCap = 'round'; g.lineJoin = 'round';
+      for (let k = 1; k < pts.length; k++) {
+        const a = pts[k - 1], b = pts[k], v = 1 - (now - b.t) / LIFE;
+        g.strokeStyle = 'rgba(54,76,132,' + (v * .85).toFixed(3) + ')'; g.lineWidth = 1.1 + v * .5;
+        g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke();
+      }
+      const h = pts[pts.length - 1]; if (h && now - h.t < 140) { g.fillStyle = '#364C84'; g.beginPath(); g.arc(h.x, h.y, 2.2, 0, 7); g.fill(); }
+      raf = pts.length ? requestAnimationFrame(draw) : 0;
+    };
+    heroRetrato.addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse' || root.dataset.trazo === '0') return;
+      const r = clip.getBoundingClientRect(), p = { x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now() }, l = pts[pts.length - 1];
+      if (l && Math.hypot(p.x - l.x, p.y - l.y) < 2) return;
+      pts.push(p); if (pts.length > 180) pts.shift(); if (!raf) raf = requestAnimationFrame(draw);
+    });
+  }
+}
+
+/* ===== Lupa del visor: ver la línea fina de cerca (cursor, o mantener el dedo) ===== */
+{
+  const img = $('#lbImg'), lens = $('.lens'); let hold = 0, touching = false;
+  const at = e => {
+    const r = img.getBoundingClientRect(), box = img.parentElement.getBoundingClientRect(); if (!r.width) return;
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    if (x < 0 || y < 0 || x > r.width || y > r.height) { lens.classList.remove('on'); return; }
+    const Z = Math.max(2, (img.naturalWidth || r.width) / r.width * 1.15), L = lens.offsetWidth, up = e.pointerType === 'mouse' ? 0 : -L * .75;
+    lens.style.left = (e.clientX - box.left) + 'px'; lens.style.top = (e.clientY - box.top + up) + 'px';
+    lens.style.backgroundImage = 'url("' + (img.currentSrc || img.src) + '")';
+    lens.style.backgroundSize = (r.width * Z) + 'px ' + (r.height * Z) + 'px';
+    lens.style.backgroundPosition = (L / 2 - x * Z) + 'px ' + (L / 2 - y * Z) + 'px';
+    lens.classList.add('on');
+  };
+  const end = () => { clearTimeout(hold); touching = false; lens.classList.remove('on'); };
+  img.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' || touching) at(e); });
+  img.addEventListener('pointerleave', () => { if (!touching) lens.classList.remove('on'); });
+  img.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; clearTimeout(hold); hold = setTimeout(() => { touching = true; at(e); }, 160); });
+  img.addEventListener('contextmenu', e => e.preventDefault());
+  ['pointerup', 'pointercancel'].forEach(t => img.addEventListener(t, end));
+  $('#lb').addEventListener('close', end);
+}
+
 /* ===== Revelado al entrar en pantalla (inicio y pie) ===== */
 const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }), { rootMargin: '0px 0px -8% 0px' });
 $$('.rv').forEach(el => io.observe(el));
@@ -1907,7 +1999,9 @@ renderPort();
 
 /* ===== Flash (datos de ejemplo, igual que la web original) ===== */
 const THUMB = ['b dt" style="--d:var(--fg)', 'b v2 ln', 'b v3 fill" style="--c:var(--fg)', 'b fill" style="--c:var(--peri)'];
-$('#flist').innerHTML = FLASH.map((fl, i) => `<li class="frow ${fl.ok ? 'ok' : 'done'}"><span class="cap">${pad(i + 1)}</span><span class="thumb" aria-hidden="true"><span class="${THUMB[i % 4]}"></span></span><div class="fn"><h3 class="nm">${fl.n}</h3><span class="cap">${fl.s}</span></div><span class="fst">${fl.ok ? 'Disponible' : 'Ya tatuado'}</span>${fl.ok ? `<button class="pill sm" type="button" data-flash="${fl.n}">Reservar este flash <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></button>` : '<span></span>'}</li>`).join('');
+const postmark = i => `<svg class="pmark" viewBox="0 0 240 110" aria-hidden="true"><defs><path id="pm${i}" d="M185 55m-40 0a40 40 0 1 1 80 0a40 40 0 1 1 -80 0"/></defs><g fill="none" stroke="currentColor" stroke-linecap="round"><path class="pm-w" stroke-width="2.2" d="M8 33q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0M8 46q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0M8 59q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0M8 72q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0q5.5 -4.6 11 0t11 0"/><circle class="pm-c" cx="185" cy="55" r="50" stroke-width="2.4"/><circle class="pm-c" cx="185" cy="55" r="31" stroke-width="1.3"/></g><text font-family="Montserrat,Arial,sans-serif" font-size="10.4" font-weight="600" fill="currentColor"><textPath href="#pm${i}" textLength="246" lengthAdjust="spacing">• YA TATUADO • BLU GAL • FLASH </textPath></text><use href="#bg-flor" x="174" y="44" width="22" height="22"/></svg>`;   // matasellos «Ya tatuado»
+
+$('#flist').innerHTML = FLASH.map((fl, i) => `<li class="frow ${fl.ok ? 'ok' : 'done'}"><span class="cap">${pad(i + 1)}</span><span class="thumb" aria-hidden="true"><span class="${THUMB[i % 4]}"></span></span><div class="fn"><h3 class="nm">${fl.n}</h3><span class="cap">${fl.s}</span></div><span class="fst">${fl.ok ? 'Disponible' : 'Ya tatuado'}</span>${fl.ok ? `<button class="pill sm" type="button" data-flash="${fl.n}">Reservar este flash <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></button>` : '<span></span>' + postmark(i)}</li>`).join('');
 const nf = FLASH.filter(fl => fl.ok).length, flashTxt = nf === 1 ? 'Queda 1 disponible' : 'Quedan ' + nf + ' disponibles';
 $('#fcount').textContent = flashTxt; $('#tileFlash').textContent = flashTxt;
 document.addEventListener('click', e => {
