@@ -846,6 +846,105 @@ html:not(.js) .ab{display:none}
   .mapbtn{padding:.5rem .8rem}
 }
 
+/* ---------- Portada en celular: ella primero y, debajo, una tarjeta con la agenda, el titular y los botones ----------
+   (antes el texto iba arriba y ella quedaba en la mitad de abajo; la píldora de la agenda flotaba sola). */
+.r-card{display:contents}
+@media (max-width:519px){
+  .hero-retrato{--sh:clamp(400px,calc(var(--vh) - var(--text-h,310px)),1100px);--who-h:min(calc(var(--sh) - var(--bar-h) - 4px),calc(98vw / var(--ar)))}
+  .scene{order:-1}
+  .r-card{display:grid;gap:1rem;justify-items:start;position:relative;z-index:3;margin-top:calc(-1 * var(--r-sheet));padding:1.45rem var(--mx) calc(var(--r-sheet) + 1.2rem);border-radius:var(--r-sheet) var(--r-sheet) 0 0;background:var(--butter);color:var(--navy);
+    --fg:var(--navy);--mute:var(--soft);--hair:rgba(54,76,132,.3);--ring:rgba(54,76,132,.46);--acc:var(--navy);--acc-fg:var(--butter);--acc-ring:var(--navy);--focus:var(--navy)}
+  .r-card .r-left,.r-card .r-right{width:100%;padding:0}
+  .r-card .r-right{gap:.95rem}
+  .wm{bottom:calc(var(--gut) + var(--r-sheet))}
+  .sheet{margin-top:calc(-1 * var(--r-sheet))}
+  /* la píldora: una sola fila compacta (estado primero) y pegada al titular */
+  .r-card .loc{gap:.7rem;padding:.55rem .55rem .55rem 1rem;font-size:.64rem;letter-spacing:.06em}
+  .r-card .loc>div{display:flex;flex-wrap:wrap;gap:.12rem .7rem}
+  .r-card .loc .st{order:-1;font-weight:600}
+  .r-card .loc-i{background:var(--cream);width:2rem;height:2rem;padding:.5rem}
+}
+
+/* ---------- Pie: titular, enlaces y datos en una sola rejilla (sin huecos ni filas sueltas) ---------- */
+.panel{padding-bottom:calc(var(--s4) + var(--r-sheet))}          /* antes sec + r-sheet: dos rellenos grandes seguidos del mismo color */
+.foot{padding-top:var(--s4)}
+.foot-top{display:grid;gap:var(--s3) clamp(2rem,5vw,5rem);grid-template-columns:minmax(0,1fr);grid-template-areas:"t" "l" "m"}
+.foot-top .h-md{grid-area:t}
+.foot-links{grid-area:l}
+.foot-meta{grid-area:m;margin:0;align-self:end}
+@media (min-width:900px){.foot-top{grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:"t l" "m l";grid-template-rows:auto 1fr;align-items:start}}
+.foot-wm{margin-top:var(--s5)}
+.foot-wm svg{width:100%;max-width:72rem;margin-inline:auto;display:block}
+.foot-end{padding-top:var(--s3)}
+/* Barra de pruebas en celular: queda en un botoncito para no tapar la portada */
+.ab-toggle{display:none}
+@media (max-width:699px){
+  .ab:not(.open){padding:.28rem}
+  .ab:not(.open)>:not(.ab-toggle){display:none}
+  .ab-toggle{display:inline-flex}
+  .ab.open .ab-toggle{display:none}
+}
+
+/* celulares bajitos (iPhone SE, mini en horizontal…): la tarjeta se compacta para que los botones sigan a la vista */
+@media (max-width:519px) and (max-height:720px){
+  .hero-retrato{--sh:clamp(360px,calc(var(--vh) - var(--text-h,300px)),1100px)}
+  .hero-retrato h1{font-size:clamp(2rem,8.6vw,2.5rem)}
+  .r-card{gap:.75rem;padding-top:1.15rem}
+  .r-card .r-right{gap:.7rem}
+  .r-card .hero-p{font-size:.94rem;line-height:1.5}
+}
+
+/* ===========================================================================
+   Sus diseños hechos a mano (de su web original): marcadores de título, tarjeta de carta
+   festoneada con estrella-sticker, estrella naranja de los acuerdos, corazón y sobre.
+   =========================================================================== */
+:root{--orange:#F07B3F}
+.mk,.mk-h{display:inline-block;flex:none;width:.6em;height:.54em;margin-right:.3em;vertical-align:.03em}
+.mk.dt{background-size:7px 7px,10px 10px}
+.mk-h{height:.58em;fill:currentColor;color:var(--navy)}
+.p-navy .mk-h{color:var(--butter)}
+.tile .mk-h{color:inherit;width:.62em;height:.58em}
+.hrt{display:inline-block;width:.85em;height:.85em;margin-right:.45em;vertical-align:-.12em;fill:currentColor}
+/* Flash: tarjeta festoneada (el borde son semicírculos) con estrella-sticker y puntitos */
+.fwrap{position:relative;margin-top:.7rem;max-width:48rem}
+.fstk{position:absolute;z-index:2;left:-14px;top:-24px;width:78px;height:78px;overflow:visible;transform:rotate(-14deg)}
+.fhead{--r:16px;position:relative;overflow:hidden;display:grid;gap:.85rem;justify-items:start;padding:clamp(2.2rem,3.6vw,2.9rem) clamp(1.7rem,3vw,2.7rem) clamp(1.9rem,3vw,2.5rem);background:var(--butter);color:var(--navy);--mute:var(--soft);
+  -webkit-mask:radial-gradient(var(--r),#000 calc(100% - .5px),#0000) 0 0/calc(2*var(--r)) calc(2*var(--r)) round,linear-gradient(#000 0 0) 50%/calc(100% - 2*var(--r)) calc(100% - 2*var(--r)) no-repeat;
+  mask:radial-gradient(var(--r),#000 calc(100% - .5px),#0000) 0 0/calc(2*var(--r)) calc(2*var(--r)) round,linear-gradient(#000 0 0) 50%/calc(100% - 2*var(--r)) calc(100% - 2*var(--r)) no-repeat}
+.fhead>*:not(.fdeco){position:relative}
+.fdeco{position:absolute;right:-30px;bottom:-60px;width:260px;height:230px;--d:#6F8FD6;transform:rotate(-20deg)}
+.fwrap .vf-intro{max-width:none}
+.fwrap .vf-intro p:not(.h-md){max-width:46ch}
+.fcount{margin-top:.2rem;padding:.55rem 1.05rem;border-radius:999px;background:var(--navy);color:var(--butter);font:500 .68rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.fcount:empty{display:none}
+@media (max-width:599px){.fhead{--r:12px}.fdeco{width:200px;height:180px;right:-40px;bottom:-50px}.fstk{width:66px;height:66px;left:-8px;top:-20px}}
+/* Acuerdos: estrella naranja y título en negrita, como en su web */
+.va-aside .rules{border-top:0}
+.va-aside .rule{display:grid;gap:.25rem;padding:0 0 1.1rem;border-bottom:0}
+.va-aside .rule h3{display:flex;align-items:center;gap:.55rem;font:600 1rem/1.3 var(--sans);letter-spacing:0}
+.va-aside .rule h3::before{content:"";flex:none;width:17px;height:17px;background:var(--orange);-webkit-mask:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjM2NCAyOTIgNzAgNzAiPjxwYXRoIGQ9Ik0gNDMyLjU3IDMyNy4zNiBDIDQzMi41OSAzMjYuMDEgNDMxLjIyIDMyNC44MyA0MjkuNTggMzI0LjIxIEMgNDI3LjkzIDMyMy41OSA0MjYuMDQgMzIzLjQ0IDQyNC4yMCAzMjMuMzAgQyA0MDYuMTkgMzIxLjkzIDM4Ny43MyAzMjAuOTggMzcwLjIyIDMyNC4zMiBDIDM2Ny44MyAzMjQuNzcgMzY1LjAyIDMyNS42OCAzNjQuODMgMzI3LjQ3IEMgMzY0LjU5IDMyOS42NiAzNjguMzcgMzMwLjc2IDM3MS4zNyAzMzEuMTEgQyAzODIuNzggMzMyLjQzIDM5NC40MCAzMzIuODMgNDA1Ljk0IDMzMi4zMyBDIDQxMC42NCAzMzIuMTMgNDMyLjQ5IDMzMi41MyA0MzIuNTcgMzI3LjM2Ii8+PHBhdGggZD0iTSA0MjIuNjAgMzUxLjI5IEMgNDIzLjU3IDM1MC4zNiA0MjMuNDQgMzQ4LjU1IDQyMi43MSAzNDYuOTUgQyA0MjEuOTggMzQ1LjM1IDQyMC43NiAzNDMuOTEgNDE5LjU1IDM0Mi41MCBDIDQwNy43OSAzMjguODAgMzk1LjQwIDMxNS4wNyAzODAuNjcgMzA1LjA1IEMgMzc4LjY1IDMwMy42OSAzNzYuMDIgMzAyLjM0IDM3NC42MiAzMDMuNDcgQyAzNzIuOTAgMzA0Ljg1IDM3NC44MCAzMDguMzAgMzc2LjY3IDMxMC42NyBDIDM4My44MSAzMTkuNjcgMzkxLjc0IDMyOC4xNyA0MDAuMjUgMzM1Ljk4IEMgNDAzLjcyIDMzOS4xNiA0MTguODkgMzU0Ljg5IDQyMi42MCAzNTEuMjkiLz48cGF0aCBkPSJNIDM5OC42MyAzNjEuMTcgQyAzOTkuOTcgMzYxLjE5IDQwMS4xNiAzNTkuODIgNDAxLjc4IDM1OC4xNyBDIDQwMi4zOSAzNTYuNTMgNDAyLjU1IDM1NC42NCA0MDIuNjkgMzUyLjgwIEMgNDA0LjA2IDMzNC43OSA0MDUuMDEgMzE2LjMzIDQwMS42NyAyOTguODIgQyA0MDEuMjEgMjk2LjQzIDQwMC4zMCAyOTMuNjIgMzk4LjUxIDI5My40MiBDIDM5Ni4zMiAyOTMuMTkgMzk1LjIyIDI5Ni45NiAzOTQuODggMjk5Ljk2IEMgMzkzLjU2IDMxMS4zOCAzOTMuMTUgMzIzLjAwIDM5My42NSAzMzQuNTQgQyAzOTMuODYgMzM5LjI0IDM5My40NiAzNjEuMDggMzk4LjYzIDM2MS4xNyIvPjxwYXRoIGQ9Ik0gMzc0LjY5IDM1MS4yMCBDIDM3NS42MiAzNTIuMTYgMzc3LjQ0IDM1Mi4wNCAzNzkuMDMgMzUxLjMxIEMgMzgwLjY0IDM1MC41OCAzODIuMDggMzQ5LjM1IDM4My40OCAzNDguMTUgQyAzOTcuMTggMzM2LjM5IDQxMC45MSAzMjQuMDAgNDIwLjkzIDMwOS4yNiBDIDQyMi4zMCAzMDcuMjUgNDIzLjY0IDMwNC42MiA0MjIuNTEgMzAzLjIyIEMgNDIxLjEzIDMwMS41MCA0MTcuNjggMzAzLjM5IDQxNS4zMiAzMDUuMjcgQyA0MDYuMzEgMzEyLjQxIDM5Ny44MSAzMjAuMzMgMzkwLjAxIDMyOC44NSBDIDM4Ni44MyAzMzIuMzIgMzcxLjEwIDM0Ny40OCAzNzQuNjkgMzUxLjIwIi8+PC9zdmc+") center/contain no-repeat;mask:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjM2NCAyOTIgNzAgNzAiPjxwYXRoIGQ9Ik0gNDMyLjU3IDMyNy4zNiBDIDQzMi41OSAzMjYuMDEgNDMxLjIyIDMyNC44MyA0MjkuNTggMzI0LjIxIEMgNDI3LjkzIDMyMy41OSA0MjYuMDQgMzIzLjQ0IDQyNC4yMCAzMjMuMzAgQyA0MDYuMTkgMzIxLjkzIDM4Ny43MyAzMjAuOTggMzcwLjIyIDMyNC4zMiBDIDM2Ny44MyAzMjQuNzcgMzY1LjAyIDMyNS42OCAzNjQuODMgMzI3LjQ3IEMgMzY0LjU5IDMyOS42NiAzNjguMzcgMzMwLjc2IDM3MS4zNyAzMzEuMTEgQyAzODIuNzggMzMyLjQzIDM5NC40MCAzMzIuODMgNDA1Ljk0IDMzMi4zMyBDIDQxMC42NCAzMzIuMTMgNDMyLjQ5IDMzMi41MyA0MzIuNTcgMzI3LjM2Ii8+PHBhdGggZD0iTSA0MjIuNjAgMzUxLjI5IEMgNDIzLjU3IDM1MC4zNiA0MjMuNDQgMzQ4LjU1IDQyMi43MSAzNDYuOTUgQyA0MjEuOTggMzQ1LjM1IDQyMC43NiAzNDMuOTEgNDE5LjU1IDM0Mi41MCBDIDQwNy43OSAzMjguODAgMzk1LjQwIDMxNS4wNyAzODAuNjcgMzA1LjA1IEMgMzc4LjY1IDMwMy42OSAzNzYuMDIgMzAyLjM0IDM3NC42MiAzMDMuNDcgQyAzNzIuOTAgMzA0Ljg1IDM3NC44MCAzMDguMzAgMzc2LjY3IDMxMC42NyBDIDM4My44MSAzMTkuNjcgMzkxLjc0IDMyOC4xNyA0MDAuMjUgMzM1Ljk4IEMgNDAzLjcyIDMzOS4xNiA0MTguODkgMzU0Ljg5IDQyMi42MCAzNTEuMjkiLz48cGF0aCBkPSJNIDM5OC42MyAzNjEuMTcgQyAzOTkuOTcgMzYxLjE5IDQwMS4xNiAzNTkuODIgNDAxLjc4IDM1OC4xNyBDIDQwMi4zOSAzNTYuNTMgNDAyLjU1IDM1NC42NCA0MDIuNjkgMzUyLjgwIEMgNDA0LjA2IDMzNC43OSA0MDUuMDEgMzE2LjMzIDQwMS42NyAyOTguODIgQyA0MDEuMjEgMjk2LjQzIDQwMC4zMCAyOTMuNjIgMzk4LjUxIDI5My40MiBDIDM5Ni4zMiAyOTMuMTkgMzk1LjIyIDI5Ni45NiAzOTQuODggMjk5Ljk2IEMgMzkzLjU2IDMxMS4zOCAzOTMuMTUgMzIzLjAwIDM5My42NSAzMzQuNTQgQyAzOTMuODYgMzM5LjI0IDM5My40NiAzNjEuMDggMzk4LjYzIDM2MS4xNyIvPjxwYXRoIGQ9Ik0gMzc0LjY5IDM1MS4yMCBDIDM3NS42MiAzNTIuMTYgMzc3LjQ0IDM1Mi4wNCAzNzkuMDMgMzUxLjMxIEMgMzgwLjY0IDM1MC41OCAzODIuMDggMzQ5LjM1IDM4My40OCAzNDguMTUgQyAzOTcuMTggMzM2LjM5IDQxMC45MSAzMjQuMDAgNDIwLjkzIDMwOS4yNiBDIDQyMi4zMCAzMDcuMjUgNDIzLjY0IDMwNC42MiA0MjIuNTEgMzAzLjIyIEMgNDIxLjEzIDMwMS41MCA0MTcuNjggMzAzLjM5IDQxNS4zMiAzMDUuMjcgQyA0MDYuMzEgMzEyLjQxIDM5Ny44MSAzMjAuMzMgMzkwLjAxIDMyOC44NSBDIDM4Ni44MyAzMzIuMzIgMzcxLjEwIDM0Ny40OCAzNzQuNjkgMzUxLjIwIi8+PC9zdmc+") center/contain no-repeat}
+/* El sobre con corazón: agenda cerrada */
+.env{flex:none;width:clamp(88px,9vw,120px);height:auto;transform:rotate(-6deg)}
+.notify{align-items:center}
+.notify>div{flex:1 1 15rem}
+@media (min-width:760px){.notify{gap:1.4rem 2rem}}
+/* Tesela de Flash: festoneada, con la estrella-sticker y los puntitos */
+.t-flash{--r:13px;overflow:visible;background:none}
+.tile-clip{position:absolute;inset:0;z-index:-2;overflow:hidden;background:var(--lime);
+  -webkit-mask:radial-gradient(var(--r),#000 calc(100% - .5px),#0000) 0 0/calc(2*var(--r)) calc(2*var(--r)) round,linear-gradient(#000 0 0) 50%/calc(100% - 2*var(--r)) calc(100% - 2*var(--r)) no-repeat;
+  mask:radial-gradient(var(--r),#000 calc(100% - .5px),#0000) 0 0/calc(2*var(--r)) calc(2*var(--r)) round,linear-gradient(#000 0 0) 50%/calc(100% - 2*var(--r)) calc(100% - 2*var(--r)) no-repeat}
+.tile-stk{position:absolute;z-index:2;left:-12px;top:-18px;width:60px;height:60px;overflow:visible;transform:rotate(-14deg);pointer-events:none}
+.tile-dots{position:absolute;right:-34px;bottom:-46px;width:132px;height:116px;--d:#6F8FD6;transform:rotate(-20deg);pointer-events:none}
+.t-flash .tile-top .cap{margin-left:2.7rem}
+
+@media (min-width:700px){.bento{grid-auto-rows:minmax(clamp(11rem,16vw,17rem),auto)}}
+
+@media (max-width:699px){
+  .tile-stk{left:-14px;top:-16px;width:48px;height:48px}
+  .tile-dots{right:-36px;bottom:-40px;width:104px;height:92px}
+  .t-flash .tile-top .cap{margin-left:1.2rem;white-space:nowrap;letter-spacing:.06em}
+}
+
 /* Sin JavaScript (p. ej. la Vista previa de Archivos del iPad): se ve el contenido estático */
 html:not(.js) #ringWrap,html:not(.js) .vp-mode,html:not(.js) .mapbtn,html:not(.js) .wa-prev{display:none}
 html:not(.js) .view{position:static}
@@ -946,6 +1045,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 
 <!-- PORTADA B · retrato: la composición de la referencia (persona recortada, nombre gigante cruzándola, píldora a la izquierda y lema a la derecha) -->
 <section class="hero hero-retrato p-sky" id="inicio" data-tone="light" aria-labelledby="h1r">
+  <div class="r-card">
   <div class="r-left">
     <div class="loc">
       <div>
@@ -965,6 +1065,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
       <a class="pill acc" href="#agendar"><span class="only-open">Agendar cita</span><span class="only-closed">Avísame cuando abra</span><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a>
       <a class="pill" href="#flash">Ver flash</a>
     </div>
+  </div>
   </div>
   <div class="scene">
     <div class="trazo-clip" aria-hidden="true"><div class="trazo" data-trazo><svg viewBox="0 0 1600 699.3" preserveAspectRatio="xMidYMax meet" focusable="false"><path class="s nv" d="M652.1 220C654.1 215.9 659.7 203.5 664.1 195.5C668.6 187.4 672.7 178.9 678.6 172C684.5 165.1 692.3 159.7 699.3 153.9C706.4 148.1 713.1 141.6 720.9 137C728.7 132.3 737.5 128.7 746.1 125.8C754.8 122.9 763.8 121.3 772.8 119.7C781.8 118 790.9 115.9 800 115.9C809.1 115.9 818.2 118.1 827.2 119.8C836.2 121.4 845.4 122.5 854 125.6C862.5 128.7 870.5 133.5 878.3 138.3C886.1 143 893.6 148.2 900.7 153.9C907.8 159.6 914.7 165.7 920.8 172.5C927 179.2 933.3 186.4 937.7 194.4C942.2 202.3 945.7 215.9 947.3 220.3" pathLength="1" data-t="0.30,1.15" data-pen="1" data-g="rA" data-c="1"/><circle class="k bd" cx="949" cy="225" r="2.9" data-t="1.35,.35" data-k="f" data-g="rA"/><circle class="k bd" cx="649.9" cy="224.5" r="2.9" data-t="0.30,.35" data-k="f" data-g="rA"/><path class="s md" d="M679.7 209.7C681.4 206.5 685.9 196.4 689.9 190.3C693.8 184.1 698.2 177.9 703.3 172.7C708.4 167.4 714.6 163.1 720.6 158.9C726.7 154.7 733.1 151.2 739.6 147.7C746 144.1 752.3 139.7 759.3 137.6C766.2 135.5 774 136 781.3 134.9C788.6 133.8 795.7 131 803 130.9C810.3 130.8 817.7 132.7 824.8 134.2C832 135.7 839.1 137.5 846 139.8C852.9 142.2 859.6 145.1 866.1 148.4C872.6 151.6 878.8 155.4 884.9 159.5C891 163.6 897.4 167.7 902.4 172.9C907.5 178.2 911 184.9 915.1 191C919.3 197 925.2 206.2 927.2 209.3" pathLength="1" data-t="0.95,1.40" data-g="rB" data-c="1"/><path class="k dt" d="M623.6 236.4C624.4 233.7 626.8 225.5 628.5 220.1C630.2 214.8 631.7 209.2 634 204.1C636.3 199 639.4 194.2 642.2 189.3C645 184.4 647.8 179.5 650.9 174.8C653.9 170.1 657.2 165.5 660.6 161C664 156.5 667.2 151.8 671.1 147.7C675 143.6 679.5 140.1 683.9 136.5C688.3 133 692.9 129.7 697.5 126.4C702.1 123.2 706.7 119.7 711.5 116.9C716.4 114.1 724.3 110.8 726.8 109.5" data-t="1.50,1.00" data-g="rC" data-c="1" data-k="f"/><path class="k dt" d="M873 109.9C875.6 111 883.7 113.9 888.7 116.5C893.7 119.2 898.5 122.3 903 125.7C907.5 129.1 911.5 133.2 915.8 136.8C920.1 140.5 924.7 143.9 928.7 147.8C932.7 151.8 936.3 156.2 939.9 160.6C943.6 164.9 947.4 169.2 950.6 173.8C953.8 178.5 956.6 183.5 959.1 188.6C961.6 193.7 963.2 199.1 965.5 204.3C967.8 209.5 971.1 214.4 972.8 219.7C974.4 225.1 974.8 233.8 975.2 236.6" data-t="1.60,1.00" data-g="rC" data-c="1" data-k="f"/><path class="s nv" d="M655.7 525.8C654.8 512 652.3 468.8 649.9 443C647.5 417.1 644.4 393.5 641.5 370.5C638.7 347.6 637.6 326.1 632.8 305.2C628.1 284.4 621.9 262.4 613.2 245.4C604.5 228.4 592.8 214.9 580.6 203.3C568.5 191.7 554.5 182.8 540.3 175.9C526 168.9 510.8 165 495.1 161.4C479.4 157.9 462.3 154.7 445.9 154.5C429.5 154.4 411.8 156.8 396.6 160.6C381.4 164.5 361.5 174.8 354.5 177.6" pathLength="1" data-t="1.62,1.15" data-pen="1" data-g="brL" data-c="1"/><path class="s nv th" d="M646.4 410.2C643.1 392.7 622.8 383.5 607.1 386.3C612.5 400.5 630.2 413.9 646.4 410.2" pathLength="1" data-t="1.94,0.55" data-g="brL"/><path class="s md th" d="M646.4 410.2Q629.5 398.3 615 391.1" pathLength="1" data-t="2.06,0.40" data-g="brL"/><path class="s nv th" d="M641.4 369.9C656.1 370.9 669.3 356.8 671.7 343.7C658 343.8 642 354.7 641.4 369.9" pathLength="1" data-t="2.00,0.55" data-g="brL"/><path class="s md th" d="M641.4 369.9Q655.8 359 665.6 349" pathLength="1" data-t="2.12,0.40" data-g="brL"/><path class="s nv th" d="M635.3 318.1C630 300.6 607.4 289.8 590.7 291.3C596.7 307.7 616.7 322.9 635.3 318.1" pathLength="1" data-t="2.07,0.55" data-g="brL"/><path class="s md th" d="M635.3 318.1Q616.1 304.7 599.7 296.7" pathLength="1" data-t="2.19,0.40" data-g="brL"/><path class="s nv th" d="M624.2 273C637.6 270.5 646.8 254.7 646.6 242.3C634.9 246 622.6 259.6 624.2 273" pathLength="1" data-t="2.12,0.55" data-g="brL"/><path class="s md th" d="M624.2 273Q635.2 259.9 642.2 248.5" pathLength="1" data-t="2.24,0.40" data-g="brL"/><path class="s nv th" d="M601.3 226.4C588.1 210.8 560.1 210.2 543.8 219.4C557.1 234.3 584.4 240.9 601.3 226.4" pathLength="1" data-t="2.17,0.55" data-g="brL"/><path class="s md th" d="M601.3 226.4Q575.6 221.5 555.3 220.8" pathLength="1" data-t="2.29,0.40" data-g="brL"/><path class="s nv th" d="M564.3 189.9C573.9 177.6 570 156.8 560.5 146.1C552.7 158.3 552.3 179.5 564.3 189.9" pathLength="1" data-t="2.23,0.55" data-g="brL"/><path class="s md th" d="M564.3 189.9Q563.9 170.1 561.3 154.9" pathLength="1" data-t="2.35,0.40" data-g="brL"/><path class="s nv th" d="M512 165.6C492.9 160 471.5 174.9 464.6 191.4C482.9 195.7 507.2 186.1 512 165.6" pathLength="1" data-t="2.30,0.55" data-g="brL"/><path class="s md th" d="M512 165.6Q489.9 175.8 474.1 186.3" pathLength="1" data-t="2.42,0.40" data-g="brL"/><path class="s nv th" d="M455 154.9C455.7 140.8 441.8 127.3 429.3 124.3C429.5 137.7 440.3 153.7 455 154.9" pathLength="1" data-t="2.38,0.55" data-g="brL"/><path class="s md th" d="M455 154.9Q444.4 140.4 434.4 130.4" pathLength="1" data-t="2.50,0.40" data-g="brL"/><path class="s nv th" d="M403.2 159.1C386.8 160.9 375.8 179.1 376.3 194C391.4 191.2 406.3 176 403.2 159.1" pathLength="1" data-t="2.49,0.55" data-g="brL"/><path class="s md th" d="M403.2 159.1Q390 174 381.7 187" pathLength="1" data-t="2.61,0.40" data-g="brL"/><circle class="s nv" cx="348.9" cy="179.9" r="5.5" pathLength="1" data-t="2.75,.4" data-g="brL"/><path class="s nv" d="M945 526.2C944.4 512.3 941.4 468.2 941.3 442.7C941.2 417.2 942.7 395.9 944.5 373.2C946.4 350.6 949.4 327.2 952.5 306.9C955.5 286.5 956.5 267.8 963 251.1C969.4 234.5 979.3 219.4 991.1 207C1003 194.5 1019.1 184.1 1034.3 176.2C1049.5 168.4 1065.2 163.4 1082.4 159.7C1099.6 156.1 1119.1 154.1 1137.6 154.2C1156.1 154.4 1176.4 156.9 1193.4 160.6C1210.5 164.3 1232.3 173.7 1240 176.4" pathLength="1" data-t="3.02,1.15" data-pen="1" data-g="brR" data-c="1"/><path class="s nv th" d="M945.8 359.8C944.5 346.2 929.5 337.3 917.2 337.9C920.5 349 933.1 360.9 945.8 359.8" pathLength="1" data-t="3.41,0.55" data-g="brR"/><path class="s md th" d="M945.8 359.8Q933.6 349.1 922.9 342.3" pathLength="1" data-t="3.53,0.40" data-g="brR"/><path class="s nv th" d="M961.9 254.1C965.9 239 953.3 224.3 939.8 220.8C937.9 234.5 946.7 251.7 961.9 254.1" pathLength="1" data-t="3.53,0.55" data-g="brR"/><path class="s md th" d="M961.9 254.1Q952.9 238.4 944.2 227.4" pathLength="1" data-t="3.65,0.40" data-g="brR"/><path class="s nv th" d="M989.5 208.7C1004.9 225.3 1032.7 221.5 1047.5 207.7C1032.2 194.7 1004.3 191.9 989.5 208.7" pathLength="1" data-t="3.58,0.55" data-g="brR"/><path class="s md th" d="M989.5 208.7Q1015.7 210 1035.9 207.9" pathLength="1" data-t="3.70,0.40" data-g="brR"/><path class="s nv th" d="M1032.5 177.2C1045.5 168.8 1047.7 148.7 1041.5 136.1C1030.6 144.9 1024.2 164.2 1032.5 177.2" pathLength="1" data-t="3.64,0.55" data-g="brR"/><path class="s md th" d="M1032.5 177.2Q1037.8 159 1039.7 144.4" pathLength="1" data-t="3.76,0.40" data-g="brR"/><path class="s nv th" d="M1088.7 158.5C1093.2 177.1 1116.2 189.3 1133.7 188.4C1128.6 170.7 1108.7 153.9 1088.7 158.5" pathLength="1" data-t="3.72,0.55" data-g="brR"/><path class="s md th" d="M1088.7 158.5Q1108.1 173.3 1124.7 182.4" pathLength="1" data-t="3.84,0.40" data-g="brR"/><path class="s nv th" d="M1142 154.3C1156.1 153.8 1168.5 139 1170.6 126.3C1157.8 128.1 1142.7 140.2 1142 154.3" pathLength="1" data-t="3.79,0.55" data-g="brR"/><path class="s md th" d="M1142 154.3Q1155.7 142.5 1164.8 131.9" pathLength="1" data-t="3.91,0.40" data-g="brR"/><path class="s nv th" d="M1195.1 161C1193.2 176.7 1207.7 192.2 1221.6 196.1C1221.6 181.8 1210.6 163.6 1195.1 161" pathLength="1" data-t="3.90,0.55" data-g="brR"/><path class="s md th" d="M1195.1 161Q1205.9 177.6 1216.3 189.1" pathLength="1" data-t="4.02,0.40" data-g="brR"/><circle class="s nv" cx="1245.7" cy="178.4" r="5.5" pathLength="1" data-t="4.15,.4" data-g="brR"/><path class="s nv" d="M436 705.3C436.3 697.6 436.7 671.3 438 659.3C439.3 647.3 442.3 642 444 633.3C445.7 624.6 447.3 611.6 448 607.3" pathLength="1" data-t="2.05,0.70" data-g="tu" data-c="1"/><path class="s nv" d="M433.4 608.6C409.8 604.3 396 567.6 405.1 526.7Q413.9 542.8 425 549.2Q430.8 530.8 439.2 506.9Q451.7 529 460.6 546.1Q470.4 537.9 476.2 520.5C492.3 559.2 485.1 597.7 462.6 606Q448.5 613.6 433.4 608.6" pathLength="1" data-t="2.50,1.00" data-g="tu" data-c="1"/><path class="s md th" d="M439.2 506.9C432.9 543.3 438.3 580.7 448.2 609.4" pathLength="1" data-t="2.90,0.60" data-g="tu"/><path class="s md th" d="M425 549.2C429.9 568.8 436.9 589.3 443.6 605.6" pathLength="1" data-t="3.00,0.50" data-g="tu"/><path class="s md th" d="M460.6 546.1C459.2 566.3 455.8 587.6 452 604.8" pathLength="1" data-t="3.05,0.50" data-g="tu"/><path class="s nv th" d="M440 649.3C440.4 614.7 408.7 571.1 380.6 554.3C384.3 586.4 409.9 633.8 440 649.3" pathLength="1" data-t="2.35,0.80" data-g="tu"/><path class="s md th" d="M440 649.3Q416.1 604.8 392.5 573.3" pathLength="1" data-t="2.70,0.50" data-g="tu"/><path class="s nv th" d="M440 649.3C466.2 635.6 488.6 594.1 491.9 566.2C467.9 581.2 440.3 619.4 440 649.3" pathLength="1" data-t="2.35,0.80" data-g="tu"/><path class="s md th" d="M440 649.3Q465.9 613.5 481.5 582.8" pathLength="1" data-t="2.70,0.50" data-g="tu"/><path class="s nv" d="M1196 589.3C1138 547.3 1150 495.3 1192 523.3Q1196 527.3 1200 523.3C1242 495.3 1254 547.3 1196 589.3Z" pathLength="1" data-t="3.00,1.10" data-g="he" data-c="1"/><path class="s md th" d="M1196 576.5C1156.6 547.9 1164.7 512.6 1193.3 531.6Q1196 534.3 1198.7 531.6C1227.3 512.6 1235.4 547.9 1196 576.5Z" pathLength="1" data-t="3.35,0.80" data-g="he"/><path class="s nv th" d="M1196 519.3C1182 491.3 1148 487.3 1154 511.3C1158 527.3 1184 523.3 1196 519.3" pathLength="1" data-t="3.70,0.55" data-g="he"/><path class="s nv th" d="M1196 519.3C1210 491.3 1244 487.3 1238 511.3C1234 527.3 1208 523.3 1196 519.3" pathLength="1" data-t="3.80,0.55" data-g="he"/><path class="s md th" d="M1194 521.3C1188 537.3 1178 545.3 1170 553.3" pathLength="1" data-t="3.95,0.40" data-g="he"/><path class="s md th" d="M1198 521.3C1204 537.3 1214 545.3 1222 553.3" pathLength="1" data-t="4.00,0.40" data-g="he"/><path class="k pt" d="M1187 551.3h.01M1196 557.3h.01M1205 551.3h.01M1196 543.3h.01M1179 541.3h.01M1213 541.3h.01M1196 569.3h.01" data-t="4.1,.5" data-k="f" data-g="he"/><g class="sp sp0" transform="translate(716 146)" data-t="3.30,.5" data-k="f" data-g="sp0"><path class="k th" d="M-12 0H12 M0 -12V12 M-8.4 -8.4L8.4 8.4 M-8.4 8.4L8.4 -8.4"/></g><g class="sp sp1" transform="translate(890 136)" data-t="3.55,.5" data-k="f" data-g="sp1"><path class="k th" d="M-9 0H9 M0 -9V9 M-6.3 -6.3L6.3 6.3 M-6.3 6.3L6.3 -6.3"/></g><g class="sp sp2" transform="translate(534 232)" data-t="3.70,.5" data-k="f" data-g="sp2"><path class="k th" d="M-11 0H11 M0 -11V11 M-7.7 -7.7L7.7 7.7 M-7.7 7.7L7.7 -7.7"/></g><g class="sp sp0" transform="translate(1072 216)" data-t="3.45,.5" data-k="f" data-g="sp3"><path class="k th" d="M-12 0H12 M0 -12V12 M-8.4 -8.4L8.4 8.4 M-8.4 8.4L8.4 -8.4"/></g><g class="sp sp1" transform="translate(404 128)" data-t="3.90,.5" data-k="f" data-g="sp4"><path class="k th" d="M-8 0H8 M0 -8V8 M-5.6 -5.6L5.6 5.6 M-5.6 5.6L5.6 -5.6"/></g><g class="sp sp2" transform="translate(1250 128)" data-t="3.75,.5" data-k="f" data-g="sp5"><path class="k th" d="M-9 0H9 M0 -9V9 M-6.3 -6.3L6.3 6.3 M-6.3 6.3L6.3 -6.3"/></g><g class="sp sp0" transform="translate(1282 440)" data-t="4.20,.5" data-k="f" data-g="sp6"><path class="k th" d="M-8 0H8 M0 -8V8 M-5.6 -5.6L5.6 5.6 M-5.6 5.6L5.6 -5.6"/></g><g class="sp sp1" transform="translate(330 499.3)" data-t="4.25,.5" data-k="f" data-g="sp7"><path class="k th" d="M-10 0H10 M0 -10V10 M-7 -7L7 7 M-7 7L7 -7"/></g><g class="sp sp2" transform="translate(1268 659.3)" data-t="4.35,.5" data-k="f" data-g="sp8"><path class="k th" d="M-8 0H8 M0 -8V8 M-5.6 -5.6L5.6 5.6 M-5.6 5.6L5.6 -5.6"/></g><g class="sp sp0" transform="translate(566 673.3)" data-t="4.30,.5" data-k="f" data-g="sp9"><path class="k th" d="M-9 0H9 M0 -9V9 M-6.3 -6.3L6.3 6.3 M-6.3 6.3L6.3 -6.3"/></g><g class="grow"><path class="s nv" d="M352.5 184.1C348.4 197.5 359.3 206.5 371.4 206.1C374.2 193.7 367.1 181.5 352.5 184.1" pathLength="1" data-s="0.020,0.220" data-g="brL"/><path class="s md th" d="M352.5 184.1Q360.3 194.5 367.6 201.7" pathLength="1" data-s="0.100,0.260" data-g="brL"/><path class="s nv" d="M346.1 184.6C332.2 184.9 326.9 198 331 209.3C344.7 208.9 354.4 198.5 346.1 184.6" pathLength="1" data-s="0.055,0.255" data-g="brL"/><path class="s md th" d="M346.1 184.6Q338.5 195.3 334 204.4" pathLength="1" data-s="0.135,0.295" data-g="brL"/><path class="s nv" d="M343.6 178.6C339.4 163.7 325.2 163.1 315.4 171.9C320.5 183 333.5 188.6 343.6 178.6" pathLength="1" data-s="0.090,0.290" data-g="brL"/><path class="s md th" d="M343.6 178.6Q331.1 174.7 321 173.2" pathLength="1" data-s="0.170,0.330" data-g="brL"/><path class="s nv" d="M348.5 174.4C360.2 165.9 356.6 152.2 346.2 145.5C336.7 153.8 335.3 167.9 348.5 174.4" pathLength="1" data-s="0.125,0.325" data-g="brL"/><path class="s md th" d="M348.5 174.4Q348.3 161.3 346.6 151.3" pathLength="1" data-s="0.205,0.365" data-g="brL"/><path class="s nv" d="M354 177.8C365.9 186.6 377.7 178.9 380.8 166.6C370.1 160.7 356.4 163.8 354 177.8" pathLength="1" data-s="0.160,0.360" data-g="brL"/><path class="s md th" d="M354 177.8Q366.4 173.6 375.4 168.9" pathLength="1" data-s="0.240,0.400" data-g="brL"/><path class="s nv" d="M1245.8 172.9C1260.3 165.6 1257.7 151.7 1246.5 143.9C1234.6 151.1 1231.3 165 1245.8 172.9" pathLength="1" data-s="0.050,0.250" data-g="brR"/><path class="s md th" d="M1245.8 172.9Q1247 159.8 1246.4 149.7" pathLength="1" data-s="0.130,0.290" data-g="brR"/><path class="s nv" d="M1251 176.8C1262 187.1 1274.5 180.6 1278.8 168.4C1268.5 160.6 1254.4 162.1 1251 176.8" pathLength="1" data-s="0.085,0.285" data-g="brR"/><path class="s md th" d="M1251 176.8Q1263.7 173.9 1273.2 170.1" pathLength="1" data-s="0.165,0.325" data-g="brR"/><path class="s nv" d="M1248.8 182.9C1243.4 195.8 1253.3 205.9 1265.4 206.7C1268.9 195.1 1262.9 182.3 1248.8 182.9" pathLength="1" data-s="0.120,0.320" data-g="brR"/><path class="s md th" d="M1248.8 182.9Q1255.6 194.1 1262.1 202" pathLength="1" data-s="0.200,0.360" data-g="brR"/><path class="s nv" d="M1242.4 182.7C1227.7 181.1 1221.3 193.7 1224.8 205.8C1237.3 205.8 1247.7 196.2 1242.4 182.7" pathLength="1" data-s="0.155,0.355" data-g="brR"/><path class="s md th" d="M1242.4 182.7Q1233.8 192.6 1228.3 201.2" pathLength="1" data-s="0.235,0.395" data-g="brR"/><path class="s nv" d="M1240.5 176.5C1238.1 160.7 1224 158.7 1213.2 167C1217.1 178.6 1229.4 185.5 1240.5 176.5" pathLength="1" data-s="0.190,0.390" data-g="brR"/><path class="s md th" d="M1240.5 176.5Q1228.5 171.4 1218.6 168.9" pathLength="1" data-s="0.270,0.430" data-g="brR"/><path class="s nv th" d="M637 329.5C636.2 328.3 634.6 323.8 632.6 322C630.6 320.2 627.6 318.9 625.1 318.6C622.6 318.3 619.7 318.9 617.6 320C615.5 321.1 613.6 323.2 612.6 325.1C611.6 327.1 611.3 329.6 611.6 331.6C611.9 333.6 613 335.7 614.3 337.1C615.6 338.4 617.5 339.3 619.2 339.7C620.8 340 622.8 339.6 624.1 339C625.5 338.4 626.7 337.1 627.4 335.9C628 334.8 628.2 333.2 628.1 332C627.9 330.9 627.2 329.7 626.6 329C625.9 328.2 624.8 327.8 624 327.7C623.1 327.6 622.2 327.9 621.6 328.2C621 328.5 620.7 329.5 620.5 329.7" pathLength="1" data-s="0.100,0.460" data-g="brL"/><path class="s nv th" d="M590.2 213C588.7 212.4 584.2 209.3 581.2 208.9C578.2 208.5 574.6 209.3 572.1 210.7C569.6 212 567.3 214.5 566 216.9C564.8 219.2 564.4 222.4 564.8 224.8C565.1 227.3 566.5 229.9 568.1 231.5C569.6 233.2 572.1 234.4 574.1 234.8C576.2 235.2 578.6 234.8 580.3 234C582.1 233.3 583.6 231.6 584.5 230.2C585.3 228.7 585.6 226.7 585.5 225.2C585.3 223.7 584.5 222.1 583.6 221.2C582.7 220.2 581.3 219.5 580.2 219.3C579.1 219.1 577.8 219.4 576.9 219.8C576.1 220.2 575.4 221.1 575.1 221.8C574.8 222.5 575 223.6 575 224" pathLength="1" data-s="0.210,0.570" data-g="brL"/><path class="s nv th" d="M472.3 156.9C470.8 156 465.2 153.6 462.9 151.1C460.7 148.5 459.2 144.7 458.9 141.5C458.6 138.4 459.5 134.6 460.9 132.1C462.4 129.5 465.1 127.1 467.6 125.9C470.1 124.7 473.4 124.5 475.9 124.9C478.4 125.3 481 126.8 482.6 128.5C484.3 130.1 485.4 132.7 485.8 134.8C486.1 136.8 485.6 139.3 484.7 141C483.9 142.7 482.2 144.2 480.7 145C479.2 145.8 477.3 146 475.8 145.7C474.3 145.5 472.9 144.6 472 143.7C471.1 142.8 470.6 141.4 470.4 140.4C470.3 139.3 470.7 138.1 471.2 137.4C471.6 136.7 472.8 136.3 473.1 136" pathLength="1" data-s="0.320,0.680" data-g="brL"/><path class="s nv th" d="M971.9 232.6C973.1 231.7 976.3 228.2 978.9 227.3C981.4 226.4 984.6 226.4 987.1 227C989.5 227.7 992 229.4 993.5 231.2C995 233 995.9 235.7 996.1 237.8C996.3 240 995.6 242.5 994.5 244.2C993.5 246 991.7 247.5 990 248.2C988.3 249 986.1 249.1 984.5 248.7C982.8 248.4 981.2 247.3 980.2 246.2C979.1 245.1 978.5 243.5 978.3 242.1C978.2 240.8 978.6 239.3 979.2 238.3C979.7 237.3 980.8 236.4 981.8 236C982.7 235.6 983.8 235.7 984.7 235.9C985.5 236.1 986.2 236.7 986.6 237.2C987 237.8 987 238.8 987.1 239.1" pathLength="1" data-s="0.130,0.490" data-g="brR"/><path class="s nv th" d="M1065.6 163.9C1066.9 162.9 1071.6 160.2 1073.3 157.7C1075 155.2 1075.9 151.6 1075.8 148.8C1075.8 145.9 1074.5 142.7 1073 140.6C1071.4 138.4 1068.7 136.7 1066.4 135.9C1064 135.1 1061.1 135.2 1058.9 135.9C1056.7 136.5 1054.6 138.2 1053.3 139.8C1052 141.4 1051.3 143.8 1051.2 145.7C1051.1 147.6 1051.9 149.7 1052.8 151.1C1053.7 152.6 1055.4 153.7 1056.8 154.2C1058.2 154.8 1060 154.7 1061.3 154.4C1062.5 154 1063.7 153 1064.4 152.2C1065.1 151.3 1065.4 150 1065.4 149C1065.4 148.1 1064.9 147.1 1064.5 146.5C1064 145.9 1062.9 145.6 1062.6 145.4" pathLength="1" data-s="0.240,0.600" data-g="brR"/><path class="s nv th" d="M1171.6 156.8C1173.4 156.3 1179.4 155.7 1182.3 153.8C1185.2 152 1187.7 148.8 1188.9 145.8C1190.1 142.9 1190.3 139.1 1189.6 136.2C1189 133.3 1187 130.3 1185 128.4C1182.9 126.6 1179.9 125.4 1177.3 125C1174.8 124.7 1171.9 125.5 1169.8 126.6C1167.8 127.7 1166 129.8 1165 131.7C1164.1 133.6 1163.9 136.1 1164.2 138C1164.6 139.9 1165.8 141.8 1167 143C1168.2 144.1 1170 144.9 1171.5 145.1C1172.9 145.3 1174.6 144.8 1175.7 144.2C1176.8 143.6 1177.7 142.4 1178.1 141.4C1178.6 140.5 1178.5 139.2 1178.3 138.4C1178.1 137.6 1177 136.8 1176.8 136.5" pathLength="1" data-s="0.350,0.710" data-g="brR"/></g><g class="pen" aria-hidden="true"><g class="pen-in"><path class="pf" d="M0 0L-2.2 -11H2.2Z"/><path class="pg" d="M-3.4 -11H3.4L5 -38H-5Z"/><path class="pb" d="M-7 -38H7V-80H-7Z"/><path class="pl" d="M-7 -52H7M-7 -60H7"/><path class="pf" d="M-3 -80H3V-88H-3Z"/><circle class="pd" cx="0" cy="0" r="2.4"/></g></g></svg></div></div>
@@ -996,7 +1097,9 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
       <div class="fan" aria-hidden="true"><img src="assets/relicario.jpg" alt="" loading="lazy"><img src="assets/tulipan.jpg" alt="" loading="lazy"><img src="assets/444.jpg" alt="" loading="lazy"></div>
       <div><h3>Mi portafolio</h3><p class="tile-p">Línea fina, minimalista, ornamental y botánica.</p></div>
     </a>
-    <a class="tile t-lime rv" style="--d:.06s" href="#flash" data-v="flash">
+    <a class="tile t-lime t-flash rv" style="--d:.06s" href="#flash" data-v="flash">
+      <svg class="tile-stk" viewBox="-6 -6 82 82" aria-hidden="true"><use href="#bg-flor" width="70" height="70" style="color:#E7F1A8" stroke="#E7F1A8" stroke-width="8" stroke-linejoin="round"/><use href="#bg-flor" width="70" height="70" style="color:#364C84"/></svg>
+      <span class="tile-clip" aria-hidden="true"><span class="b v3 dt tile-dots"></span></span>
       <div class="tile-top"><span class="cap">02 · Flash</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
       <div class="t-flash-art" aria-hidden="true"><span class="b dt" style="--d:var(--navy)"></span><span class="b v2 ln"></span><span class="b v3 fill" style="--c:var(--peri)"></span></div>
       <div><h3>Flash tattoo</h3><p class="tile-p" id="tileFlash">Quedan 3 disponibles</p></div>
@@ -1014,7 +1117,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
     <a class="tile t-ring rv" href="#cuidados" data-v="cuidados">
       <div class="tile-top"><span class="cap">05 · Cuidados</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
       <div class="t-line" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <div><h3>Cuidados</h3><p class="tile-p">Ver guía de cuidados</p></div>
+      <div><h3><svg class="mk-h" aria-hidden="true"><use href="#bg-heart"/></svg>Cuidados</h3><p class="tile-p">Ver guía de cuidados</p></div>
     </a>
     <a class="tile t-ring rv" style="--d:.06s" href="#preguntas" data-v="preguntas">
       <div class="tile-top"><span class="cap">06 · Preguntas</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
@@ -1024,7 +1127,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
     <a class="tile t-photo rv" style="--d:.12s" href="#sobre" data-v="sobre">
       <img src="assets/gabriela-retrato.jpg" alt="" loading="lazy">
       <div class="tile-top"><span class="cap" style="color:var(--butter)">07 · Sobre mí</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></span></div>
-      <div class="t-bot"><h3>Detrás de blu</h3><p class="tile-p" style="color:var(--sky)">Tatuadora y diseñadora de modas</p></div>
+      <div class="t-bot"><h3><svg class="mk-h" aria-hidden="true"><use href="#bg-heart"/></svg>Detrás de blu</h3><p class="tile-p" style="color:var(--sky)">Tatuadora y diseñadora de modas</p></div>
     </a>
     <a class="tile t-cream rv" style="--d:.18s" href="#tienda" data-v="tienda">
       <div class="tile-top"><span class="cap">08 · Tiendita</span><span class="go"><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg><span class="sr-only">Ir a la tienda</span></span></div>
@@ -1043,14 +1146,14 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
       <a href="#" data-wa="Hola, Blu Gal.">WhatsApp <svg class="ar" style="width:.8em;height:.8em" aria-hidden="true"><use href="#i-ur"/></svg></a>
       <a data-link="facebook" href="#">Facebook <svg class="ar" style="width:.8em;height:.8em" aria-hidden="true"><use href="#i-ur"/></svg></a>
     </nav>
-  </div>
-  <div class="foot-meta">
-    <p>Bogotá, Colombia · Solo con cita previa</p>
-    <a class="linklike" href="#privacidad">Política de privacidad</a>
-    <button class="pill sm foot-share" type="button" id="share" hidden>Compartir <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></button>
+    <div class="foot-meta">
+      <p>Bogotá, Colombia · Solo con cita previa</p>
+      <a class="linklike" href="#privacidad">Política de privacidad</a>
+      <button class="pill sm foot-share" type="button" id="share" hidden>Compartir <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></button>
+    </div>
   </div>
   <div class="foot-wm rv"><svg viewBox="0 0 665.5 292.5" role="img" aria-label="Blu Gal"><use href="#logo-h"/></svg></div>
-  <div class="foot-end cap"><span>© Blu Gal <span id="year">2026</span></span><a href="#inicio" style="text-decoration:none">Volver arriba ↑</a></div>
+  <div class="foot-end cap"><span><svg class="hrt" aria-hidden="true"><use href="#bg-heart"/></svg>© Blu Gal <span id="year">2026</span></span><a href="#inicio" style="text-decoration:none">Volver arriba ↑</a></div>
 </footer>
 
 <!-- =================== HOJAS =================== -->
@@ -1060,7 +1163,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 <span id="portafolio" class="anchor" aria-hidden="true"></span>
 <section class="view p-navy" id="v-portafolio" data-view="portafolio" data-tone="dark" aria-labelledby="vp-h">
  <div class="v-in">
-  <header class="v-head"><h2 class="h-lg" id="vp-h" tabindex="-1">Mi <span class="nb">portafolio<svg class="glyph" aria-hidden="true"><use href="#bg-flor"/></svg></span></h2>
+  <header class="v-head"><h2 class="h-lg" id="vp-h" tabindex="-1"><span class="mk b fill" aria-hidden="true"></span>Mi portafolio</h2>
     <div class="v-tools"><span class="cap" id="vpCap">(07) trabajos</span><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
   <div class="vp">
     <div class="vp-side">
@@ -1091,13 +1194,18 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 
 <!-- Flash -->
 <span id="flash" class="anchor" aria-hidden="true"></span>
-<section class="view p-butter" id="v-flash" data-view="flash" data-tone="light" aria-labelledby="vf-h">
+<section class="view p-sky" id="v-flash" data-view="flash" data-tone="light" aria-labelledby="vf-h">
  <div class="v-in">
-  <header class="v-head"><h2 class="h-lg" id="vf-h" tabindex="-1"><span class="nb">Flash tattoo<svg class="glyph" aria-hidden="true"><use href="#bg-flor"/></svg></span></h2>
-    <div class="v-tools"><span class="pill acc fcount" id="fcount">Quedan 3 disponibles</span><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
-  <div class="vf-intro">
-    <p class="h-md">Un fragmento, <em>una sola piel</em></p>
-    <p>Diseños listos para tatuar. Cada uno se tatúa una sola vez: cuando alguien lo lleva en su piel, no vuelve a estar disponible.</p>
+  <header class="v-head"><h2 class="h-lg" id="vf-h" tabindex="-1"><span class="mk b v2 ln" aria-hidden="true"></span>Flash tattoo</h2>
+    <div class="v-tools"><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
+  <div class="fwrap">
+    <svg class="fstk" viewBox="-6 -6 82 82" aria-hidden="true"><use href="#bg-flor" width="70" height="70" style="color:#E7F1A8" stroke="#E7F1A8" stroke-width="8" stroke-linejoin="round"/><use href="#bg-flor" width="70" height="70" style="color:#364C84"/></svg>
+    <div class="fhead vf-intro">
+      <span class="b v3 dt fdeco" aria-hidden="true"></span>
+      <p class="h-md">Un fragmento, <em>una sola piel</em></p>
+      <p>Diseños listos para tatuar. Cada uno se tatúa una sola vez: cuando alguien lo lleva en su piel, no vuelve a estar disponible.</p>
+      <span class="fcount" id="fcount">Quedan 3 disponibles</span>
+    </div>
   </div>
   <div class="vf-list">
     <ul class="flist" id="flist"></ul>
@@ -1111,7 +1219,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 <span id="servicios" class="anchor" aria-hidden="true"></span>
 <section class="view p-sky vs" id="v-servicios" data-view="servicios" data-tone="light" aria-labelledby="vs-h">
  <div class="v-in">
-  <header class="v-head"><h2 class="h-lg" id="vs-h" tabindex="-1"><span class="nb">Servicios<svg class="glyph" aria-hidden="true"><use href="#bg-flor"/></svg></span></h2>
+  <header class="v-head"><h2 class="h-lg" id="vs-h" tabindex="-1"><span class="mk b v3 dt" aria-hidden="true"></span>Servicios</h2>
     <div class="v-tools"><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
   <div class="svcs">
     <article class="svc">
@@ -1159,7 +1267,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 <span id="agendar" class="anchor" aria-hidden="true"></span>
 <section class="view p-sky" id="v-agendar" data-view="agendar" data-tone="light" aria-labelledby="va-h">
  <div class="v-in">
-  <header class="v-head"><h2 class="h-lg" id="va-h" tabindex="-1">Agenda tu <span class="nb">cita<svg class="glyph" aria-hidden="true"><use href="#bg-flor"/></svg></span></h2>
+  <header class="v-head"><h2 class="h-lg" id="va-h" tabindex="-1"><span class="mk b fill" style="--c:var(--lime)" aria-hidden="true"></span>Agenda tu cita</h2>
     <div class="v-tools"><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
   <p class="lead">Tu solicitud se envía por WhatsApp. Luego puedes adjuntar tus referencias en el mismo chat.</p>
   <div class="va">
@@ -1183,6 +1291,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
         <p class="msg" id="msg" role="status" aria-live="polite"></p>
       </form>
       <div class="closed only-closed">
+        <svg class="env" viewBox="0 0 124 84" aria-hidden="true"><g fill="none" stroke="#FFFDF5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13C40 9 82 11 117 7C118 28 118 50 119 73C82 75 42 73 5 77C6 55 4 33 6 13Z"/><path d="M7 14C24 26 42 37 60 48C79 36 98 22 116 9"/><path d="M6 76C19 64 32 54 45 44"/><path d="M118 72C105 62 90 52 76 43"/></g><use href="#bg-heart" x="50" y="38" width="20" height="20" style="color:#FBFDC6"/></svg>
         <p class="h-md">¿Agenda cerrada? <em>Escríbeme.</em></p>
         <p>Escríbeme y te aviso cuando abra nuevas fechas.</p>
         <button class="pill acc big" type="button" data-wa="Hola, Blu Gal. Quiero que me avises cuando abras agenda.">Avísame <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></button>
@@ -1193,7 +1302,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
       <details class="wa-prev only-open" id="waDet" open><summary class="cap">Vista previa · Así se verá tu mensaje</summary><pre id="waPrev" aria-live="polite"></pre></details>
       <div class="va-direct"><p>¿Prefieres escribirme directo?</p><a class="pill" href="#" data-wa="Hola, Blu Gal.">WhatsApp <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a></div>
       <div>
-        <h3 class="h-md va-rules-t">Acuerdos de tu cita</h3>
+        <h3 class="h-md va-rules-t"><span class="mk b v2 ln" aria-hidden="true"></span>Acuerdos de tu cita</h3>
         <div class="rules">
           <div class="rule"><h3>Anticipo</h3><!-- Sugerencia (opcional): "Se paga al confirmar…" evita confundir "cancelar" con anular. Se deja su texto original. --><p>Se cancela al confirmar la fecha, así queda reservada, y se descuenta del valor total de tu tatuaje.</p></div>
           <div class="rule"><h3>Cancelar o reprogramar</h3><p>Avísame con 24 horas de anticipación y tu anticipo pasa a la nueva fecha. Con menos tiempo, el anticipo no se devuelve.</p></div>
@@ -1211,7 +1320,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 <span id="cuidados" class="anchor" aria-hidden="true"></span>
 <section class="view p-navy" id="v-cuidados" data-view="cuidados" data-tone="dark" aria-labelledby="vc-h">
  <div class="v-in">
-  <header class="v-head"><h2 class="h-lg" id="vc-h" tabindex="-1">Cuidados de tu <span class="nb">tatuaje<svg class="glyph" aria-hidden="true"><use href="#bg-flor"/></svg></span></h2>
+  <header class="v-head"><h2 class="h-lg" id="vc-h" tabindex="-1"><svg class="mk-h" aria-hidden="true"><use href="#bg-heart"/></svg>Cuidados de tu tatuaje</h2>
     <div class="v-tools"><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
   <div class="vc">
     <div class="vc-lead"><p class="cap">Fragmentos que se vuelven permanentes</p><p class="h-md">Todo lo que necesitas para que tu fragmento <em>cure bien</em></p>
@@ -1232,7 +1341,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 <span id="preguntas" class="anchor" aria-hidden="true"></span>
 <section class="view p-navy vq" id="v-preguntas" data-view="preguntas" data-tone="dark" aria-labelledby="vq-h">
  <div class="v-in">
-  <header class="v-head"><h2 class="h-lg" id="vq-h" tabindex="-1">Preguntas <span class="nb">frecuentes<svg class="glyph" aria-hidden="true"><use href="#bg-flor"/></svg></span></h2>
+  <header class="v-head"><h2 class="h-lg" id="vq-h" tabindex="-1"><span class="mk b v2 ln" aria-hidden="true"></span>Preguntas frecuentes</h2>
     <div class="v-tools"><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
   <div class="faq">
     <details><summary>¿Qué estilos tatúas?<svg class="ic" aria-hidden="true"><use href="#bg-flor"/></svg></summary><p>Solo línea fina, minimalista, ornamental y botánica.</p></details>
@@ -1244,6 +1353,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
     <details><summary>¿Puedo cambiar mi cita?<svg class="ic" aria-hidden="true"><use href="#bg-flor"/></svg></summary><p>Sí, avisándome con 24 horas de anticipación.</p></details>
   </div>
   <div class="notify">
+    <svg class="env" viewBox="0 0 124 84" aria-hidden="true"><g fill="none" stroke="#FFFDF5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13C40 9 82 11 117 7C118 28 118 50 119 73C82 75 42 73 5 77C6 55 4 33 6 13Z"/><path d="M7 14C24 26 42 37 60 48C79 36 98 22 116 9"/><path d="M6 76C19 64 32 54 45 44"/><path d="M118 72C105 62 90 52 76 43"/></g><use href="#bg-heart" x="50" y="38" width="20" height="20" style="color:#FBFDC6"/></svg>
     <div><h3>¿Agenda cerrada?</h3><p>Escríbeme y te aviso cuando abra nuevas fechas.</p></div>
     <button class="pill acc" type="button" data-wa="Hola, Blu Gal. Quiero que me avises cuando abras agenda.">Avísame <svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></button>
   </div>
@@ -1255,7 +1365,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 <span id="sobre" class="anchor" aria-hidden="true"></span>
 <section class="view p-sky" id="v-sobre" data-view="sobre" data-tone="light" aria-labelledby="vb-h">
  <div class="v-in">
-  <header class="v-head"><h2 class="h-lg" id="vb-h" tabindex="-1">Detrás de <span class="nb">blu<svg class="glyph" aria-hidden="true"><use href="#bg-heart"/></svg></span></h2>
+  <header class="v-head"><h2 class="h-lg" id="vb-h" tabindex="-1"><svg class="mk-h" aria-hidden="true"><use href="#bg-heart"/></svg>Detrás de blu</h2>
     <div class="v-tools"><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
   <div class="about">
     <figure class="portrait"><img src="assets/gabriela-retrato.jpg" width="720" height="900" alt="Gabriela, blu gal, sonriendo con su máquina de tatuar en la mano" loading="lazy"><figcaption class="loc-tag">Bogotá, CO</figcaption></figure>
@@ -1277,7 +1387,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 <span id="tienda" class="anchor" aria-hidden="true"></span>
 <section class="view p-lime" id="v-tienda" data-view="tienda" data-tone="light" aria-labelledby="vt-h">
  <div class="v-in">
-  <header class="v-head"><h2 class="h-lg" id="vt-h" tabindex="-1"><span class="nb">Tiendita<svg class="glyph" aria-hidden="true"><use href="#bg-flor"/></svg></span></h2>
+  <header class="v-head"><h2 class="h-lg" id="vt-h" tabindex="-1"><span class="mk b fill" style="--c:var(--peri)" aria-hidden="true"></span>Tiendita</h2>
     <div class="v-tools"><button class="pill sm" type="button" data-close aria-label="Cerrar">Cerrar <svg class="ar" aria-hidden="true"><use href="#i-x"/></svg></button></div></header>
   <p class="h-md">Más que tattoos, <em>también hay moda</em> <svg class="glyph" style="vertical-align:.05em;width:.6em;height:.6em" aria-hidden="true"><use href="#bg-heart"/></svg></p>
   <div class="shop" id="shop">
@@ -1333,7 +1443,7 @@ html.js .anchor{display:none}   /* sin JS la portada no queda pegada: si no, tap
 </dialog>
 
 <!-- Selector SOLO para probar el concepto: se borra al elegir portada -->
-<div class="ab" role="group" aria-label="Probar portada (solo concepto)"><span class="cap">Portada</span><button type="button" data-v="fotos" aria-pressed="false">Fotos</button><button type="button" data-v="retrato" aria-pressed="true">Retrato</button><button type="button" data-v="mixto" aria-pressed="false" title="Retrato + fotos">Mixto</button><span class="ab-sep" aria-hidden="true"></span><span class="cap">Líneas</span><button type="button" data-tz="play" title="Volver a dibujar las líneas">Repetir ↻</button><button type="button" data-tz="off" aria-pressed="false" title="Ver la portada sin líneas">Quitar</button></div>
+<div class="ab" role="group" aria-label="Probar portada (solo concepto)"><button class="ab-toggle" type="button" aria-expanded="false">Pruebas</button><span class="cap">Portada</span><button type="button" data-v="fotos" aria-pressed="false">Fotos</button><button type="button" data-v="retrato" aria-pressed="true">Retrato</button><button type="button" data-v="mixto" aria-pressed="false" title="Retrato + fotos">Mixto</button><span class="ab-sep" aria-hidden="true"></span><span class="cap">Líneas</span><button type="button" data-tz="play" title="Volver a dibujar las líneas">Repetir ↻</button><button type="button" data-tz="off" aria-pressed="false" title="Ver la portada sin líneas">Quitar</button></div>
 
 <a class="dock" id="dock" href="#agendar" data-v="agendar" data-tone="light"><i class="dotst" aria-hidden="true"></i><span class="only-open">Agendar cita</span><span class="only-closed">Agenda cerrada · Avísame</span><svg class="ar" aria-hidden="true"><use href="#i-ur"/></svg></a>
 
@@ -1458,10 +1568,12 @@ let hero = heroRetrato;
 const rl = $('.r-left'), rr = $('.r-right');
 const fitHero = () => {
   [heroFotos, heroRetrato].forEach(h => h.style.setProperty('--hero-h', h.offsetHeight + 'px'));
-  heroRetrato.style.setProperty('--text-h', $('.scene').offsetTop + 'px');
+  const card = $('.r-card'), sc = $('.scene');
+  const phone = getComputedStyle(card).display !== 'contents';       // celular: ella arriba y la tarjeta debajo
+  heroRetrato.style.setProperty('--text-h', (phone ? card.offsetHeight + parseFloat(getComputedStyle(card).marginTop) : sc.offsetTop) + 'px');
 };
 const heroRO = new ResizeObserver(() => requestAnimationFrame(fitHero));
-[heroFotos, heroRetrato, rl, rr].forEach(el => heroRO.observe(el));
+[heroFotos, heroRetrato, rl, rr, $('.r-card')].forEach(el => heroRO.observe(el));
 let lastY = scrollY, ticking = false, toneEl = null;
 const toneAt = py => { let hit = hero; [hero, ...$$('.panel'), foot].forEach(el => { const r = el.getBoundingClientRect(); if (r.top <= py && r.bottom > py) hit = el; }); return hit; };
 
@@ -1518,6 +1630,7 @@ function setHero(v) {
 }
 $('.ab').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
+  if (b.classList.contains('ab-toggle')) { $('.ab').classList.add('open'); b.setAttribute('aria-expanded', 'true'); return; }
   if (b.dataset.tz === 'play') { root.dataset.trazo = ''; $('[data-tz="off"]').setAttribute('aria-pressed', 'false'); scrollTo(0, 0); trazoPlay(); return; }
   if (b.dataset.tz === 'off') { const off = root.dataset.trazo !== '0'; root.dataset.trazo = off ? '0' : ''; b.setAttribute('aria-pressed', off); return; }
   setHero(b.dataset.v); scrollTo(0, 0);
